@@ -20,13 +20,12 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_log_in" />
+    <include layout="@layout/content_sign_up" />
 
     <Button
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/back_button" />
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

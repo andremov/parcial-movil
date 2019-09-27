@@ -6,4 +6,5 @@
     <string name="title_activity_log_in">LogInActivity</string>
     <string name="placeholder_username">Username</string>
     <string name="placeholder_password">Password</string>
+    <string name="back_button"> Back </string>
 </resources>

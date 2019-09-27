@@ -20,16 +20,7 @@ public class MainActivity extends AppCompatActivity {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intentToBecalled=new
-                                Intent(getApplicationContext(),
-                                MainActivity.class);
-                        intentToBecalled.putExtra("user_name",
-                                ((EditText)findViewById(
-                                        R.id.login_user_name)).getText().toString());
-                        intentToBecalled.putExtra("user_password",
-                                ((EditText)findViewById(
-                                        R.id.login_password)).getText().toString());
-                        startActivity(intentToBecalled);
+                        startActivity(new Intent(MainActivity.this, LogInActivity.class));
                     }
                 });
 
@@ -38,16 +29,7 @@ public class MainActivity extends AppCompatActivity {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intentToBecalled=new
-                                Intent(getApplicationContext(),
-                                MainActivity.class);
-                        intentToBecalled.putExtra("user_name",
-                                ((EditText)findViewById(
-                                        R.id.login_user_name)).getText().toString());
-                        intentToBecalled.putExtra("user_password",
-                                ((EditText)findViewById(
-                                        R.id.login_password)).getText().toString());
-                        startActivity(intentToBecalled);
+                        startActivity(new Intent(MainActivity.this, SignUpActivity.class));
                     }
                 });
     }
