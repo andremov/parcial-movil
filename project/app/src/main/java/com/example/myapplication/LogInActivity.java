@@ -27,6 +27,10 @@ public class LogInActivity extends AppCompatActivity {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        // AQUI SE HACE EL LOG IN!
+
+                        /*
                         Intent intentToBecalled=new
                                 Intent(getApplicationContext(),
                                 MainActivity.class);
@@ -37,6 +41,7 @@ public class LogInActivity extends AppCompatActivity {
                                 ((EditText)findViewById(
                                         R.id.input_password)).getText().toString());
                         startActivity(intentToBecalled);
+                         */
                     }
                 });
 

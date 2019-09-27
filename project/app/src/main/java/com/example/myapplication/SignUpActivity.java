@@ -25,6 +25,10 @@ public class SignUpActivity extends AppCompatActivity {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        // AQUI SE HACE EL SIGN UP!
+
+                        /*
                         Intent intentToBecalled=new
                                 Intent(getApplicationContext(),
                                 MainActivity.class);
@@ -35,6 +39,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 ((EditText)findViewById(
                                         R.id.input_password)).getText().toString());
                         startActivity(intentToBecalled);
+                         */
                     }
                 });
 
