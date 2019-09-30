@@ -9,8 +9,4 @@
     <string name="menu_chat"> Comunícate </string>
     <string name="menu_map"> Ubicate </string>
     <string name="menu_logout"> Descartate </string>
-
-    <string name="nav_header_title">Mobile Programming</string>
-    <string name="nav_header_subtitle">www.uninorte.edu.co</string>
-    <string name="nav_header_desc">Navigation header</string>
 </resources>
