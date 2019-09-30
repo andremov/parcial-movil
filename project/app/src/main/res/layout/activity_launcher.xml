@@ -31,33 +31,78 @@
         app:layout_constraintVertical_bias="0.052"
         android:contentDescription="@string/app_name" />
 
-    <Button
-        android:id="@+id/login_button"
-        android:layout_width="232dp"
-        android:layout_height="76dp"
-        android:layout_marginTop="200dp"
-        android:backgroundTint="@color/colorAccentAlt"
-        android:text="@string/login_string"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/form_height"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_logo" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        >
 
-    <Button
-        android:id="@+id/signup_button"
-        android:layout_width="165dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="64dp"
-        android:background="@color/colorSoft"
-        android:text="@string/signup_string"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_button" />
+        <TextView
+            android:layout_width="@dimen/input_width"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/latofontfamily"
+            android:text="@string/label_server_ip"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="@dimen/form_first_input" />
+
+        <EditText
+            android:id="@+id/server_ip_txt"
+            android:layout_width="@dimen/input_width"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/form_label_spacing"
+            android:backgroundTint="@android:color/white"
+            android:fontFamily="@font/latofontfamily"
+            android:text="@string/placeholder_server_ip"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="@dimen/input_width"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/latofontfamily"
+            android:text="@string/label_server_port"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="@dimen/form_input_spacing"   />
+
+        <EditText
+            android:id="@+id/server_port_txt"
+            android:layout_width="@dimen/input_width"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/form_label_spacing"
+            android:backgroundTint="@android:color/white"
+            android:fontFamily="@font/latofontfamily"
+            android:inputType="number"
+            android:text="@string/placeholder_server_port"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginTop="@dimen/form_input_spacing"
+            android:backgroundTint="@color/colorAccentAlt"
+            android:text="@string/login_string"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/signup_button"
+            android:layout_width="@dimen/btn_secondary_width"
+            android:layout_height="@dimen/btn_secondary_height"
+            android:layout_marginTop="@dimen/form_input_spacing"
+            android:background="@color/colorSoft"
+            android:text="@string/signup_string"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+</LinearLayout>
 
     <TextView
         android:id="@+id/textView"

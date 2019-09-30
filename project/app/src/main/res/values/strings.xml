@@ -4,6 +4,9 @@
     <string name="login_string">Invocar</string>
     <string name="signup_string">Enlazar</string>
     <string name="placeholder_username">Usuario</string>
+    <string name="placeholder_email">Correo Electronico</string>
+    <string name="placeholder_name">Nombre</string>
+    <string name="placeholder_lastname">Apellido</string>
     <string name="placeholder_password">Contraseña</string>
     <string name="back_button"> Atrás </string>
     <string name="menu_chat"> Comunícate </string>
@@ -13,4 +16,8 @@
     <string name="placeholder_server_port">9090</string>
     <string name="label_server_ip">Dirección</string>
     <string name="label_server_port">Portal</string>
+    <string name="label_lat">Latitud</string>
+    <string name="label_long">Longitud</string>
+    <string name="placeholder_nodata">Sin datos</string>
+    <string name="label_lastloc">Última ubicación</string>
 </resources>

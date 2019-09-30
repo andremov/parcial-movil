@@ -14,9 +14,18 @@
     <dimen name="long_btn_height">60dp</dimen>
     <dimen name="long_btn_width">250dp</dimen>
 
+    <dimen name="btn_height">75dp</dimen>
+    <dimen name="btn_width">240dp</dimen>
+
+    <dimen name="btn_secondary_height">50dp</dimen>
+    <dimen name="btn_secondary_width">160dp</dimen>
+
+    <dimen name="back_btn_height">50dp</dimen>
+    <dimen name="back_btn_width">100dp</dimen>
+
     <dimen name="toolbar_height">60dp</dimen>
 
-    <dimen name="form_height">450dp</dimen>
+    <dimen name="form_height">470dp</dimen>
     <dimen name="form_input_spacing">40dp</dimen>
     <dimen name="form_label_spacing">00dp</dimen>
     <dimen name="form_first_input">20dp</dimen>

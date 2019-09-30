@@ -34,8 +34,8 @@
 
     <Button
         android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/back_btn_width"
+        android:layout_height="@dimen/back_btn_height"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@color/colorSoft"
@@ -47,23 +47,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/form_height"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"
-        >
+        app:layout_constraintVertical_bias="0.38">
 
         <TextView
             android:id="@+id/label_username"
             android:layout_width="@dimen/input_width"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/form_first_input"
             android:labelFor="@id/input_username"
             android:text="@string/placeholder_username"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="@dimen/form_first_input"
-            />
+            android:textColor="@android:color/white" />
 
         <EditText
             android:id="@+id/input_username"
@@ -81,10 +80,10 @@
             android:id="@+id/label_password"
             android:layout_width="@dimen/input_width"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/form_input_spacing"
             android:labelFor="@id/input_password"
             android:text="@string/placeholder_password"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="@dimen/form_input_spacing" />
+            android:textColor="@android:color/white" />
 
         <EditText
             android:id="@+id/input_password"
@@ -96,6 +95,66 @@
             android:ems="10"
             android:inputType="textPassword"
             android:text="@string/placeholder_password"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/label_name"
+            android:layout_width="@dimen/input_width"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/form_input_spacing"
+            android:labelFor="@id/input_name"
+            android:text="@string/placeholder_name"
+            android:textColor="@android:color/white" />
+
+        <EditText
+            android:id="@+id/input_name"
+            android:layout_width="@dimen/input_width"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/form_label_spacing"
+            android:autofillHints="name"
+            android:backgroundTint="@android:color/white"
+            android:ems="10"
+            android:text="@string/placeholder_name"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/label_lastname"
+            android:layout_width="@dimen/input_width"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/form_input_spacing"
+            android:labelFor="@id/input_lastname"
+            android:text="@string/placeholder_lastname"
+            android:textColor="@android:color/white" />
+
+        <EditText
+            android:id="@+id/input_lastname"
+            android:layout_width="@dimen/input_width"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/form_label_spacing"
+            android:autofillHints="lastname"
+            android:backgroundTint="@android:color/white"
+            android:ems="10"
+            android:text="@string/placeholder_lastname"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/label_email"
+            android:layout_width="@dimen/input_width"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/form_input_spacing"
+            android:labelFor="@id/input_email"
+            android:text="@string/placeholder_email"
+            android:textColor="@android:color/white" />
+
+        <EditText
+            android:id="@+id/input_email"
+            android:layout_width="@dimen/input_width"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="@dimen/form_label_spacing"
+            android:autofillHints="password"
+            android:backgroundTint="@android:color/white"
+            android:ems="10"
+            android:text="@string/placeholder_email"
             android:textColor="@android:color/white" />
 
 
