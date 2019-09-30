@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/app_bar_main"
+    android:nestedScrollingEnabled="true"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Real-time location"
+            android:fontFamily="@font/latofontfamily"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:textStyle="bold"
+
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/uninorteRed"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            ></View>
+
+
+
+        <org.osmdroid.views.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Last location data"
+            android:fontFamily="@font/latofontfamily"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:textStyle="bold"
+
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/uninorteRed"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            ></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/latofontfamily"
+                android:textSize="16sp"
+                android:text="Latitude"
+                android:layout_weight="0.5"
+
+
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/latofontfamily"
+                android:textSize="16sp"
+                android:id="@+id/latitude_text_view"
+                android:text="no data yet"
+                android:layout_weight="0.5"
+                android:textAlignment="textEnd"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/latofontfamily"
+                android:textSize="16sp"
+                android:text="Longitude"
+                android:layout_weight="0.5"
+
+
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/latofontfamily"
+                android:textSize="16sp"
+                android:id="@+id/longitude_text_view"
+                android:text="no data yet"
+                android:layout_weight="0.5"
+                android:textAlignment="textEnd"
+                />
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Server connection parameters"
+            android:fontFamily="@font/latofontfamily"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:textStyle="bold"
+
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/uninorteRed"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            ></View>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/latofontfamily"
+                android:textSize="16sp"
+                android:text="Server IP Address"
+                android:layout_weight="0.5"
+
+
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/latofontfamily"
+                android:textSize="16sp"
+                android:id="@+id/server_ip_txt"
+                android:text="172.17.9.21"
+                android:layout_weight="0.5"
+                android:textAlignment="textEnd"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/latofontfamily"
+                android:textSize="16sp"
+                android:text="Server Port"
+                android:layout_weight="0.5"
+
+
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/latofontfamily"
+                android:textSize="16sp"
+                android:id="@+id/server_port_txt"
+                android:text="9090"
+                android:layout_weight="0.5"
+                android:textAlignment="textEnd"
+                android:inputType="number"
+                />
+        </LinearLayout>
+
+
+
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Start Socket Service"
+            android:id="@+id/start_service_button"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/latofontfamily"
+            android:background="@color/uninorteRed"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="10dp"
+
+            android:layout_marginRight="10dp"
+
+
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Messages from server"
+            android:fontFamily="@font/latofontfamily"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:textStyle="bold"
+
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/uninorteRed"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            ></View>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/messages_list_view"
+            android:nestedScrollingEnabled="true"
+
+            ></ListView>
+    </LinearLayout>
+
+
+
+</ScrollView>

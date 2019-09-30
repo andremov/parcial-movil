@@ -7,11 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".LogInActivity">
 
-    <View
-        android:id="@+id/colored_bar"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorSoft"
+        android:src="@drawable/content_back"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

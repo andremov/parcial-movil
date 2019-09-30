@@ -1,9 +1,16 @@
 <resources>
     <string name="app_name">Hijos de la Luna</string>
     <string name="credits">Andrés Concha, Cristhyan de Marchena, Maximilliam Garcia, Andrés Movilla</string>
-    <string name="login_string">Ingresar</string>
-    <string name="signup_string">Registrar</string>
+    <string name="login_string">Invocar</string>
+    <string name="signup_string">Enlazar</string>
     <string name="placeholder_username">Usuario</string>
     <string name="placeholder_password">Contraseña</string>
     <string name="back_button"> Atrás </string>
+    <string name="menu_chat"> Comunícate </string>
+    <string name="menu_map"> Ubicate </string>
+    <string name="menu_logout"> Descartate </string>
+
+    <string name="nav_header_title">Mobile Programming</string>
+    <string name="nav_header_subtitle">www.uninorte.edu.co</string>
+    <string name="nav_header_desc">Navigation header</string>
 </resources>
