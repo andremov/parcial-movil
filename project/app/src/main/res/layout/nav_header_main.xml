@@ -17,7 +17,7 @@
         android:layout_height="72dp"
         android:layout_marginBottom="10dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/logo_full_color" />
+        android:src="@drawable/logo_full" />
 
 
 </LinearLayout>

@@ -9,4 +9,8 @@
     <string name="menu_chat"> Comunícate </string>
     <string name="menu_map"> Ubicate </string>
     <string name="menu_logout"> Descartate </string>
+    <string name="placeholder_server_ip">172.17.9.21</string>
+    <string name="placeholder_server_port">9090</string>
+    <string name="label_server_ip">Dirección</string>
+    <string name="label_server_port">Portal</string>
 </resources>
