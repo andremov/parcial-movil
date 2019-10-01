@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 
@@ -34,6 +35,8 @@ import com.example.myapplication.gps.GPSManagerCallerInterface;
 import com.example.myapplication.network.SocketManagementService;
 import com.example.myapplication.objects.ServerResponse;
 import com.example.myapplication.objects.User;
+import com.example.myapplication.objects.UserHistoryLocations;
+import com.example.myapplication.objects.UserLocations;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -58,7 +61,9 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
+import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.OverlayItem;
+import org.osmdroid.views.overlay.infowindow.InfoWindow;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -74,6 +79,10 @@ public class MainActivity extends AppCompatActivity
     ArrayList<String> listOfMessages = new ArrayList<>();
     ArrayAdapter<String> adapter;
     boolean serviceStarted = false;
+    UserLocations[] userLocations;
+    UserHistoryLocations[] userHistoryLocations;
+    ArrayList<OverlayItem> itemsInMap;
+    String lastMarkerClicked;
 
     //    final String url ="http://localhost:8080/MovilAPI/api/";
     final String url = "http://192.168.1.71:8080/MovilAPI/api/";
@@ -115,18 +124,14 @@ public class MainActivity extends AppCompatActivity
                 this,
                 "Welcome " + user, Toast.LENGTH_SHORT).
                 show();
-//        ((Button)findViewById(R.id.start_service_button)).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent=new Intent(
-//                        getApplicationContext(),SocketManagementService.class);
-//                intent.putExtra("SERVER_HOST",((EditText)findViewById(R.id.server_ip_txt)).getText()+"");
-//                intent.putExtra("SERVER_PORT",Integer.parseInt(((EditText)findViewById(R.id.server_port_txt)).getText()+""));
-//                intent.setAction(SocketManagementService.ACTION_CONNECT);
-//                startService(intent);
-//                serviceStarted=true;
-//            }
-//        });
+        ((Button)findViewById(R.id.btn_location_history)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                map.getOverlays().clear();
+                requestUserLocationHistory();
+            }
+        });
+
         initializeGPSManager();
         initializeOSM();
         initializeBroadcastManagerForSocketIO();
@@ -140,16 +145,143 @@ public class MainActivity extends AppCompatActivity
         //CREACIÓN DE PINES CLICKEABLES
 
         //your items
-        ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
-        items.add(new OverlayItem("Agua", "El marcador en el agua derecha", new GeoPoint(11.038239, -74.665461))); // Lat/Lon decimal degrees
-        items.add(new OverlayItem("Agua 2", "El marcador en el agua izquierda", new GeoPoint(11.058781, -74.934484))); // Lat/Lon decimal degrees
+        itemsInMap = new ArrayList<OverlayItem>();
+//        itemsInMap.add(new OverlayItem("Agua", "El marcador en el agua derecha", new GeoPoint(11.038239, -74.665461))); // Lat/Lon decimal degrees
+//        itemsInMap.add(new OverlayItem("Agua 2", "El marcador en el agua izquierda", new GeoPoint(11.058781, -74.934484))); // Lat/Lon decimal degrees
+
+//        //the overlay
+//        ItemizedOverlayWithFocus<OverlayItem> mOverlay = new ItemizedOverlayWithFocus<OverlayItem>(items,
+//                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+//                    @Override
+//                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+//                        Toast.makeText(getApplicationContext(), "SINGLE CLICK" + index, Toast.LENGTH_SHORT).show();
+//                        return true;
+//                    }
+//
+//                    @Override
+//                    public boolean onItemLongPress(final int index, final OverlayItem item) {
+//                        return false;
+//                    }
+//                }, this);
+//        mOverlay.setFocusItemsOnTap(true);
+//
+//        map.getOverlays().add(mOverlay);
+
+
+        //MODIFICAR *************************************
+    }
+
+    private void requestUserLocationHistory(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "locations/" + lastMarkerClicked,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //FORMA DE SACAR INFO DE PETICION
+                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
+                        ServerResponse responseJSON = gson.fromJson(response, ServerResponse.class);
+                        String data = responseJSON.getData();
+                        userHistoryLocations = gson.fromJson(data, UserHistoryLocations[].class);
+                        drawUsersHistoryLocations();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "That didn't work!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+    private void getUserLocations() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "locations",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //FORMA DE SACAR INFO DE PETICION
+                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
+                        ServerResponse responseJSON = gson.fromJson(response, ServerResponse.class);
+                        String data = responseJSON.getData();
+                        userLocations = gson.fromJson(data, UserLocations[].class);
+                        drawUsersLocations();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "That didn't work!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+    private void drawUsersHistoryLocations(){
+        for(UserHistoryLocations ul : userHistoryLocations) {
+            Marker startMarker = new Marker(map);
+            startMarker.setPosition(new GeoPoint(ul.getmLat(), ul.getmLon()));
+            startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            map.getOverlays().add(startMarker);
+            startMarker.setIcon(getResources().getDrawable(R.drawable.ic_location_history));
+            startMarker.setTitle(ul.getmLocation_timestamp());
+        }
+    }
+
+    private void drawUsersLocations(){
+        for(UserLocations ul : userLocations) {
+            Marker startMarker = new Marker(map);
+            startMarker.setPosition(new GeoPoint(ul.getmLat(), ul.getmLon()));
+            startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            map.getOverlays().add(startMarker);
+            if (ul.getmStatus().equals("online")) {
+                startMarker.setIcon(getResources().getDrawable(R.drawable.ic_location_online));
+            } else {
+                startMarker.setIcon(getResources().getDrawable(R.drawable.ic_location_offline));
+            }
+            startMarker.setTitle(ul.getmUsername());
+            startMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker, MapView mapView) {
+                    lastMarkerClicked = marker.getTitle();
+                    Toast.makeText(getApplicationContext(), marker.getTitle(), Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            });
+
+            //CREATE MYINFOWINDOW CLASS
+//            InfoWindow infoWindow = new MyInfoWindow(R.layout.clicked_marker_dialog, map);
+//            startMarker.setInfoWindow(infoWindow);
+        }
+    }
+
+    private void drawUsersLocationsTEST() {
+        for(UserLocations ul : userLocations) {
+            OverlayItem overlayItem = new OverlayItem(ul.getmFull_name(), ul.getmLastSeen(), new GeoPoint(ul.getmLat(), ul.getmLon()));
+            Drawable newMarker;
+            //CHECK IF USER IS ONLINE AND SET MARKER
+            if (ul.getmStatus().equals("online")) {
+                newMarker = this.getResources().getDrawable(R.drawable.ic_location_online);
+            } else {
+                newMarker = this.getResources().getDrawable(R.drawable.ic_location_offline);
+            }
+            overlayItem.setMarker(newMarker);
+            //ADD TO ITEMS IN MAP ARRAY
+            itemsInMap.add(overlayItem);
+        }
+//        itemsInMap.add(new OverlayItem("Agua", "El marcador en el agua derecha", new GeoPoint(11.038239, -74.665461))); // Lat/Lon decimal degrees
+//        itemsInMap.add(new OverlayItem("Agua 2", "El marcador en el agua izquierda", new GeoPoint(11.058781, -74.934484))); // Lat/Lon decimal degrees
 
         //the overlay
-        ItemizedOverlayWithFocus<OverlayItem> mOverlay = new ItemizedOverlayWithFocus<OverlayItem>(items,
+        ItemizedOverlayWithFocus<OverlayItem> mOverlay = new ItemizedOverlayWithFocus<OverlayItem>(itemsInMap,
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     @Override
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-                        Toast.makeText(getApplicationContext(), "SINGLE CLICK" + index, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "SINGLE CLICK " + index, Toast.LENGTH_SHORT).show();
                         return true;
                     }
 
@@ -161,36 +293,6 @@ public class MainActivity extends AppCompatActivity
         mOverlay.setFocusItemsOnTap(true);
 
         map.getOverlays().add(mOverlay);
-
-
-        //MODIFICAR *************************************
-    }
-
-    private void getUserLocations() {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "users/demarchenac",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //FORMA DE SACAR INFO DE PETICION
-                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
-                        ServerResponse responseJSON = gson.fromJson(response, ServerResponse.class);
-                        String data = responseJSON.getData();
-                        Toast.makeText(getApplicationContext(), data.toString(), Toast.LENGTH_SHORT).show();
-
-                        //Location[] locations = gson.fromJson(data, Location[].class);
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "That didn't work!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-// Add the request to the RequestQueue.
-        queue.add(stringRequest);
     }
 
     private void httpRequestTest() {
