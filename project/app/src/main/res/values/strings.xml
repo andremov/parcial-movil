@@ -1,23 +1,41 @@
 <resources>
+    <!-- GENERAL STRINGS -->
     <string name="app_name">Hijos de la Luna</string>
-    <string name="credits">Andrés Concha, Cristhyan de Marchena, Maximilliam Garcia, Andrés Movilla</string>
-    <string name="login_string">Invocar</string>
-    <string name="signup_string">Registrar</string>
+    <string name="developers">Andrés Concha, Cristhyan de Marchena, Maximilliam Garcia, Andrés Movilla</string>
+
+    <!--  STRINGS -->
+    <string name="title_login">Invocar</string>
+    <string name="title_signup">Pactar</string>
+    <string name="title_link">Enlazar</string>
+    <string name="action_login_string">Invocate</string>
+    <string name="action_signup_string">Pactate</string>
+    <string name="action_link_string">Enlazate</string>
+
+    <!-- FORM STRINGS -->
     <string name="placeholder_username">Usuario</string>
     <string name="placeholder_email">Correo Electronico</string>
     <string name="placeholder_name">Nombre</string>
     <string name="placeholder_lastname">Apellido</string>
     <string name="placeholder_password">Contraseña</string>
+
+    <!-- SERVER LINK STRINGS -->
+    <string name="label_server_ip">Dirección</string>
+    <string name="label_server_port">Portal</string>
+    <string name="placeholder_server_ip">172.17.9.21</string>
+    <string name="placeholder_server_port">9090</string>
+
+    <!-- UI STRINGS -->
     <string name="back_button"> Atrás </string>
+
+    <!-- MENU STRINGS -->
     <string name="menu_chat"> Comunícate </string>
     <string name="menu_map"> Ubicate </string>
     <string name="menu_logout"> Descartate </string>
-    <string name="placeholder_server_ip">172.17.9.21</string>
-    <string name="placeholder_server_port">9090</string>
-    <string name="label_server_ip">Dirección</string>
-    <string name="label_server_port">Portal</string>
+
+    <!-- LOCATION STRINGS -->
+    <string name="label_lastloc">Última ubicación</string>
     <string name="label_lat">Latitud</string>
     <string name="label_long">Longitud</string>
     <string name="placeholder_nodata">Sin datos</string>
-    <string name="label_lastloc">Última ubicación</string>
+
 </resources>

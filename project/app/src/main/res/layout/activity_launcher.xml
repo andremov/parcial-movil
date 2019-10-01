@@ -87,7 +87,7 @@
             android:layout_height="@dimen/btn_height"
             android:layout_marginTop="@dimen/form_input_spacing"
             android:backgroundTint="@color/colorAccentAlt"
-            android:text="Enlazar"
+            android:text="@string/title_link"
             android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -98,7 +98,7 @@
             android:layout_height="@dimen/btn_secondary_height"
             android:layout_marginTop="@dimen/form_input_spacing"
             android:background="@color/colorSoft"
-            android:text="Atrás"
+            android:text="@string/back_button"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -109,7 +109,7 @@
         android:layout_width="262dp"
         android:layout_height="36dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/credits"
+        android:text="@string/developers"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"

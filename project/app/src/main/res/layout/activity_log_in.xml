@@ -24,7 +24,7 @@
         android:layout_width="@dimen/input_width"
         android:layout_height="46dp"
         android:layout_marginTop="16dp"
-        android:text="@string/login_string"
+        android:text="@string/title_login"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="30sp"
@@ -51,14 +51,14 @@
             android:labelFor="@id/input_username"
             android:text="@string/placeholder_username"
             android:textColor="@android:color/white"
-            android:layout_marginTop="@dimen/form_first_input"/>
+            android:layout_marginTop="@dimen/form_first_input"
+            />
 
         <EditText
             android:id="@+id/input_username"
             android:layout_width="@dimen/input_width"
             android:layout_height="@dimen/input_height"
             android:layout_marginTop="@dimen/form_label_spacing"
-            android:autofillHints="username"
             android:backgroundTint="@android:color/white"
             android:ems="10"
             android:inputType="textPersonName"
@@ -67,7 +67,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.517"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            />
 
         <TextView
             android:id="@+id/label_password"
@@ -76,64 +77,63 @@
             android:labelFor="@id/input_password"
             android:text="@string/placeholder_password"
             android:textColor="@android:color/white"
-            android:layout_marginTop="@dimen/form_input_spacing" />
+            android:layout_marginTop="@dimen/form_input_spacing"
+            />
 
         <EditText
             android:id="@+id/input_password"
             android:layout_width="@dimen/input_width"
             android:layout_height="@dimen/input_height"
             android:layout_marginTop="@dimen/form_label_spacing"
-            android:autofillHints="password"
             android:backgroundTint="@android:color/white"
             android:ems="10"
             android:inputType="textPassword"
             android:text="@string/placeholder_password"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_username" />
+            />
 
         <Button
             android:id="@+id/login_button"
-            android:layout_width="@dimen/long_btn_width"
-            android:layout_height="@dimen/long_btn_height"
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
             android:layout_marginTop="40dp"
             android:backgroundTint="@color/colorAccentAlt"
-            android:text="Ingresar"
+            android:text="@string/action_login_string"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             />
 
         <Button
             android:id="@+id/go_to_register_button"
-            android:layout_width="@dimen/long_btn_width"
-            android:layout_height="@dimen/long_btn_height"
+            android:layout_width="@dimen/btn_secondary_width"
+            android:layout_height="@dimen/btn_secondary_height"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/colorAccentAlt"
-            android:text="Registrar"
+            android:backgroundTint="@color/colorSoft"
+            android:text="@string/action_signup_string"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             />
 
         <Button
             android:id="@+id/conf_button"
-            android:layout_width="@dimen/long_btn_width"
-            android:layout_height="@dimen/long_btn_height"
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/colorAccentAlt"
-            android:text="Configurar Servidor"
+            android:text="@string/action_link_string"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             />
 
-
-
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        layout_height="10dp"
+        layout_width="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".99"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.99" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
