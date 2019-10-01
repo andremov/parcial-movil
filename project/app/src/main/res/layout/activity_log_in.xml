@@ -106,11 +106,12 @@
             android:id="@+id/go_to_register_button"
             android:layout_width="@dimen/btn_secondary_width"
             android:layout_height="@dimen/btn_secondary_height"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/colorSoft"
+            android:layout_marginTop="@dimen/btn_spacing"
+            android:background="@color/colorSoft"
             android:text="@string/action_signup_string"
             android:textColor="@android:color/white"
-            />
+            android:textSize="@dimen/btn_secondary_text_size"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -128,5 +129,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.01" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="262dp"
+        android:layout_height="36dp"
+        android:text="@string/developers"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

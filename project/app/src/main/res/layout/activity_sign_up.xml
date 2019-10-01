@@ -32,19 +32,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="@dimen/back_btn_width"
-        android:layout_height="@dimen/back_btn_height"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/colorSoft"
-        android:text="@string/back_button"
-        android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/form_height"
         android:gravity="center"
@@ -53,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38">
+        app:layout_constraintVertical_bias="0.3">
 
         <TextView
             android:id="@+id/label_username"
@@ -157,13 +146,27 @@
 
     <Button
         android:id="@+id/register_button"
-        android:layout_width="@dimen/long_btn_width"
-        android:layout_height="@dimen/long_btn_height"
-        android:layout_marginBottom="40dp"
+        android:layout_width="@dimen/btn_width"
+        android:layout_height="@dimen/btn_height"
         android:backgroundTint="@color/colorAccentAlt"
-        android:text="@string/title_signup"
+        android:text="@string/action_signup_string"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        android:textSize="@dimen/btn_text_size"
+        android:layout_marginTop="@dimen/form_input_spacing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="@dimen/btn_secondary_width"
+        android:layout_height="@dimen/btn_secondary_height"
+        android:layout_marginTop="@dimen/btn_spacing"
+        android:background="@color/colorSoft"
+        android:text="@string/back_button"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/btn_secondary_text_size"
+        app:layout_constraintTop_toBottomOf="@+id/register_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

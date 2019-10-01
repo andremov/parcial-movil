@@ -89,31 +89,19 @@
             android:backgroundTint="@color/colorAccentAlt"
             android:text="@string/title_link"
             android:textColor="@android:color/white"
-            android:textSize="24sp"
+            android:textSize="@dimen/btn_text_size"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/back_button_to_login"
             android:layout_width="@dimen/btn_secondary_width"
             android:layout_height="@dimen/btn_secondary_height"
-            android:layout_marginTop="@dimen/form_input_spacing"
+            android:layout_marginTop="@dimen/btn_spacing"
             android:background="@color/colorSoft"
             android:text="@string/back_button"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/btn_secondary_text_size"
             android:textStyle="bold" />
 </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="262dp"
-        android:layout_height="36dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/developers"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
