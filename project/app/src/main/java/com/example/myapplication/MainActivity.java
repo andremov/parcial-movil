@@ -71,24 +71,24 @@ public class MainActivity extends AppCompatActivity
     private MapView map;
     private MyLocationNewOverlay mLocationOverlay;
     BroadcastManager broadcastManagerForSocketIO;
-    ArrayList<String> listOfMessages=new ArrayList<>();
-    ArrayAdapter<String> adapter ;
-    boolean serviceStarted=false;
+    ArrayList<String> listOfMessages = new ArrayList<>();
+    ArrayAdapter<String> adapter;
+    boolean serviceStarted = false;
 
     //    final String url ="http://localhost:8080/MovilAPI/api/";
-    final String url ="http://192.168.1.71:8080/MovilAPI/api/";
+    final String url = "http://192.168.1.71:8080/MovilAPI/api/";
 
     ArrayList<Location> locations;
 
-    public void initializeGPSManager(){
-        gpsManager=new GPSManager(this,this);
+    public void initializeGPSManager() {
+        gpsManager = new GPSManager(this, this);
         gpsManager.initializeLocationManager();
     }
 
-    public void initializeBroadcastManagerForSocketIO(){
-        broadcastManagerForSocketIO=new BroadcastManager(this,
+    public void initializeBroadcastManagerForSocketIO() {
+        broadcastManagerForSocketIO = new BroadcastManager(this,
                 SocketManagementService.
-                        SOCKET_SERVICE_CHANNEL,this);
+                        SOCKET_SERVICE_CHANNEL, this);
     }
 
     @Override
@@ -109,11 +109,11 @@ public class MainActivity extends AppCompatActivity
 //        toggle.syncState();
 //        navigationView.setNavigationItemSelectedListener(this);
 
-        String user=getIntent().getExtras().
+        String user = getIntent().getExtras().
                 getString("user_name");
         Toast.makeText(
                 this,
-                "Welcome "+user,Toast.LENGTH_SHORT).
+                "Welcome " + user, Toast.LENGTH_SHORT).
                 show();
 //        ((Button)findViewById(R.id.start_service_button)).setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -135,7 +135,6 @@ public class MainActivity extends AppCompatActivity
         getUserLocations();
 
 
-
         //MODIFICAR *************************************
 
         //CREACIÓN DE PINES CLICKEABLES
@@ -153,6 +152,7 @@ public class MainActivity extends AppCompatActivity
                         Toast.makeText(getApplicationContext(), "SINGLE CLICK" + index, Toast.LENGTH_SHORT).show();
                         return true;
                     }
+
                     @Override
                     public boolean onItemLongPress(final int index, final OverlayItem item) {
                         return false;
@@ -237,19 +237,19 @@ public class MainActivity extends AppCompatActivity
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ((TextView)findViewById(R.id.latitude_text_view)).setText(location.getLatitude()+"");
-                ((TextView)findViewById(R.id.longitude_text_view)).setText(location.getLongitude()+"");
-                if(map!=null)
+//                ((TextView)findViewById(R.id.latitude_text_view)).setText(location.getLatitude()+"");
+//                ((TextView)findViewById(R.id.longitude_text_view)).setText(location.getLongitude()+"");
+                if (map != null)
                     setMapCenter(location);
 
             }
         });
 
-        if(serviceStarted)
-            if(broadcastManagerForSocketIO!=null){
+        if (serviceStarted)
+            if (broadcastManagerForSocketIO != null) {
                 broadcastManagerForSocketIO.sendBroadcast(
                         SocketManagementService.CLIENT_TO_SERVER_MESSAGE,
-                        location.getLatitude()+" / "+location.getLongitude()+"\n");
+                        location.getLatitude() + " / " + location.getLongitude() + "\n");
             }
     }
 
@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AlertDialog.Builder builder=
+                AlertDialog.Builder builder =
                         new AlertDialog.
                                 Builder(getApplicationContext());
                 builder.setTitle("GPS Error")
@@ -277,16 +277,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode==1001){
-            if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
+        if (requestCode == 1001) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this,
-                        "Thanks!!",Toast.LENGTH_SHORT).show();
+                        "Thanks!!", Toast.LENGTH_SHORT).show();
                 gpsManager.startGPSRequesting();
             }
 
         }
-        if(requestCode==1002){
-            if(grantResults[0]==PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == 1002) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 initializeOSM();
             }
         }
@@ -298,14 +298,14 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void initializeOSM(){
-        try{
-            if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    !=PackageManager.PERMISSION_GRANTED){
+    public void initializeOSM() {
+        try {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this,
                         new String[]{
                                 Manifest.permission.
-                                        WRITE_EXTERNAL_STORAGE},1002);
+                                        WRITE_EXTERNAL_STORAGE}, 1002);
 
                 return;
             }
@@ -318,16 +318,16 @@ public class MainActivity extends AppCompatActivity
             this.mLocationOverlay =
                     new MyLocationNewOverlay(
                             new GpsMyLocationProvider(
-                                    this),map);
+                                    this), map);
             this.mLocationOverlay.enableMyLocation();
             map.getOverlays().add(this.mLocationOverlay);
-        }catch (Exception error){
-            Toast.makeText(this,error.getMessage(),Toast.LENGTH_SHORT).show();
+        } catch (Exception error) {
+            Toast.makeText(this, error.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
     }
 
-    public void setMapCenter(Location location){
+    public void setMapCenter(Location location) {
         IMapController mapController =
                 map.getController();
         mapController.setZoom(9.5);
@@ -337,12 +337,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void MessageReceivedThroughBroadcastManager(final String channel,final String type, final String message) {
+    public void MessageReceivedThroughBroadcastManager(final String channel, final String type, final String message) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 listOfMessages.add(message);
-                ((ListView)findViewById(R.id.messages_list_view)).setAdapter(adapter);
+                ((ListView) findViewById(R.id.messages_list_view)).setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
         });
@@ -356,7 +356,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onDestroy() {
-        if(broadcastManagerForSocketIO!=null){
+        if (broadcastManagerForSocketIO != null) {
             broadcastManagerForSocketIO.unRegister();
         }
         super.onDestroy();
