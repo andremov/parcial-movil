@@ -51,7 +51,7 @@ public class LogInActivity extends AppCompatActivity {
                     }
                 });
 
-        ((Button)findViewById(R.id.conf_button)).
+        ((FloatingActionButton)findViewById(R.id.conf_button)).
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
