@@ -112,27 +112,21 @@
             android:textColor="@android:color/white"
             />
 
-        <Button
-            android:id="@+id/conf_button"
-            android:layout_width="@dimen/btn_width"
-            android:layout_height="@dimen/btn_height"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/colorAccentAlt"
-            android:text="@string/action_link_string"
-            android:textColor="@android:color/white"
-            />
-
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:src="@drawable/ic_icon_settings_svg"
+        android:id="@+id/conf_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_icon_settings_svg"
+        android:tint="@android:color/white"
+
+        app:backgroundTint="@color/colorSoft"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias=".99"
+        app:layout_constraintHorizontal_bias=".01"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.99" />
+        app:layout_constraintVertical_bias="0.01" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
