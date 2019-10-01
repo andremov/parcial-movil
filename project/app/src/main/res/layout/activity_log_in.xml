@@ -33,19 +33,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="@dimen/back_btn_width"
-        android:layout_height="@dimen/back_btn_height"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/colorSoft"
-        android:text="@string/back_button"
-        android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/form_height"
@@ -105,18 +92,48 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_username" />
-    </LinearLayout>
 
-    <Button
-        android:id="@+id/login_button"
-        android:layout_width="@dimen/long_btn_width"
-        android:layout_height="@dimen/long_btn_height"
-        android:layout_marginBottom="40dp"
-        android:backgroundTint="@color/colorAccentAlt"
-        android:text="@string/login_string"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="@dimen/long_btn_width"
+            android:layout_height="@dimen/long_btn_height"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@color/colorAccentAlt"
+            android:text="Ingresar"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <Button
+            android:id="@+id/go_to_register_button"
+            android:layout_width="@dimen/long_btn_width"
+            android:layout_height="@dimen/long_btn_height"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/colorAccentAlt"
+            android:text="Registrar"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <Button
+            android:id="@+id/conf_button"
+            android:layout_width="@dimen/long_btn_width"
+            android:layout_height="@dimen/long_btn_height"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/colorAccentAlt"
+            android:text="Configurar Servidor"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.app_menu_main);
-
+        setContentView(R.layout.content_map);
     }
 }

@@ -18,28 +18,17 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.appBarLayout);
         setSupportActionBar(toolbar);
 
-        ((Button)findViewById(R.id.signup_button)).
+        ((Button)findViewById(R.id.register_button)).
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-                        // AQUI SE HACE EL SIGN UP!
-
-                        /*
-                        Intent intentToBecalled=new
+                        Intent intetToBecalled=new
                                 Intent(getApplicationContext(),
                                 MainActivity.class);
-                        intentToBecalled.putExtra("user_name",
-                                ((EditText)findViewById(
-                                        R.id.input_username)).getText().toString());
-                        intentToBecalled.putExtra("user_password",
-                                ((EditText)findViewById(
-                                        R.id.input_password)).getText().toString());
-                        startActivity(intentToBecalled);
-                         */
+                        startActivity(intetToBecalled);
                     }
                 });
 
@@ -51,5 +40,4 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }

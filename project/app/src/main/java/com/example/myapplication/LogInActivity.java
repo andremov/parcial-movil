@@ -20,38 +20,46 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         ((Button)findViewById(R.id.login_button)).
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-                        // AQUI SE HACE EL LOG IN!
-
-                        /*
-                        Intent intentToBecalled=new
+                        Intent intetToBecalled=new
                                 Intent(getApplicationContext(),
                                 MainActivity.class);
-                        intentToBecalled.putExtra("user_name",
+                        intetToBecalled.putExtra("user_name",
                                 ((EditText)findViewById(
                                         R.id.input_username)).getText().toString());
-                        intentToBecalled.putExtra("user_password",
+                        intetToBecalled.putExtra("user_password",
                                 ((EditText)findViewById(
                                         R.id.input_password)).getText().toString());
-                        startActivity(intentToBecalled);
-                         */
+                        startActivity(intetToBecalled);
+
+                        ((EditText) findViewById(R.id.input_username)).getText().clear();
+                        ((EditText) findViewById(R.id.input_password)).getText().clear();
                     }
                 });
-
-        ((Button)findViewById(R.id.back_button)).
+        ((Button)findViewById(R.id.go_to_register_button)).
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        finish();
+                        Intent intetToBecalled=new
+                                Intent(getApplicationContext(),
+                                SignUpActivity.class);
+                        startActivity(intetToBecalled);
+                    }
+                });
+
+        ((Button)findViewById(R.id.conf_button)).
+                setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intetToBecalled=new
+                                Intent(getApplicationContext(),
+                                LaunchActivity.class);
+                        startActivity(intetToBecalled);
                     }
                 });
     }
-
 }

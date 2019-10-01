@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,23 +13,24 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.app_menu_main);
+        setContentView(R.layout.activity_launcher);
 
-        // CUANDO QUIERE HACER LOG IN
-        ((Button)findViewById(R.id.login_button)).
+        ((Button)findViewById(R.id.link_server)).
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(LaunchActivity.this, LogInActivity.class));
+                        // PUT EXTRAS DE INFO DE SERVER
+                        // IP
+                        // PORT
+                        finish();
                     }
                 });
 
-        // CUANDO QUIERE HACER SIGN UP
-        ((Button)findViewById(R.id.signup_button)).
+        ((Button)findViewById(R.id.back_button_to_login)).
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(LaunchActivity.this, SignUpActivity.class));
+                        finish();
                     }
                 });
     }

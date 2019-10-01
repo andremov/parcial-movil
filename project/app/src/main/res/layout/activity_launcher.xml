@@ -82,23 +82,23 @@
             android:textColor="@android:color/white" />
 
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/link_server"
             android:layout_width="@dimen/btn_width"
             android:layout_height="@dimen/btn_height"
             android:layout_marginTop="@dimen/form_input_spacing"
             android:backgroundTint="@color/colorAccentAlt"
-            android:text="@string/login_string"
+            android:text="Enlazar"
             android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/signup_button"
+            android:id="@+id/back_button_to_login"
             android:layout_width="@dimen/btn_secondary_width"
             android:layout_height="@dimen/btn_secondary_height"
             android:layout_marginTop="@dimen/form_input_spacing"
             android:background="@color/colorSoft"
-            android:text="@string/signup_string"
+            android:text="Atrás"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />

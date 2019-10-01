@@ -5,4 +5,8 @@
     <color name="colorAccent">#7100D3</color>
     <color name="colorAccentAlt">#3CB5FF</color>
     <color name="colorSoft">#4C375C</color>
+
+    <!--    UNUSED VARIABLES FROM ORIGINAL PROJECT. CHECK -->
+    <color name="uninorteRed">#D4090F</color>
+    <color name="uninorteBlue">#0097CE</color>
 </resources>
