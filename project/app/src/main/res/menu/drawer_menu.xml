@@ -8,15 +8,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/menu_chat"
-            android:icon="@drawable/ic_menu_chat"
+            android:icon="@drawable/ic_icon_chat_svg"
             android:title="@string/menu_chat" />
         <item
             android:id="@+id/menu_map"
-            android:icon="@drawable/ic_menu_map"
+            android:icon="@drawable/ic_icon_map_svg"
             android:title="@string/menu_map" />
         <item
             android:id="@+id/menu_logout"
-            android:icon="@drawable/ic_menu_logout"
+            android:icon="@drawable/ic_icon_logout_svg"
             android:title="@string/menu_logout" />
     </group>
 
