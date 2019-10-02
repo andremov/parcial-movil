@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.objects.ServerResponse;
+import com.example.myapplication.objects.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
@@ -55,7 +56,6 @@ public class LogInActivity extends AppCompatActivity {
 
                         httpRequestTest();
 
-                        ((EditText) findViewById(R.id.input_username)).getText().clear();
                         ((EditText) findViewById(R.id.input_password)).getText().clear();
                     }
                 });
@@ -82,7 +82,6 @@ public class LogInActivity extends AppCompatActivity {
                 });
     }
 
-
     private void httpRequestTest() {
         try {
             RequestQueue queue = Volley.newRequestQueue(this);
@@ -93,19 +92,25 @@ public class LogInActivity extends AppCompatActivity {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("data", password);
 
-
-// Request a string response from the provided URL.
             JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, url + "users/"+username, jsonBody,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-//                        FORMA DE SACAR INFO DE PETICION
-/*
+
+                            String res = response.toString();
+
                             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
-                            ServerResponse responseJSON = gson.fromJson(response, ServerResponse.class);
+                            ServerResponse responseJSON = gson.fromJson(res, ServerResponse.class);
                             String json = responseJSON.getData();
-*/
-                            Toast.makeText(LogInActivity.this, "success", Toast.LENGTH_LONG).show();
+
+                            if(responseJSON.isSuccess()) {
+
+                            User user = gson.fromJson(json,User.class);
+                            Toast.makeText(LogInActivity.this, "Welcome, "+user.getmFirst_name(), Toast.LENGTH_LONG).show();
+                            goToMainActivity(user);
+
+
+                            }
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -114,10 +119,11 @@ public class LogInActivity extends AppCompatActivity {
                 }
             });
 
-// Add the request to the RequestQueue.
             queue.add(stringRequest);
-        } catch(Exception e) {
+        } catch(Exception e) { }
+    }
 
-        }
+    private void goToMainActivity(User user) {
+
     }
 }
