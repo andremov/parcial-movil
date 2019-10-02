@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.android.volley.Request;
@@ -26,7 +25,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
-import com.example.myapplication.DatePickerDialog;
 import com.example.myapplication.R;
 import com.example.myapplication.broadcast.BroadcastManager;
 import com.example.myapplication.broadcast.BroadcastManagerCallerInterface;
@@ -48,7 +46,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -125,8 +122,8 @@ public class MapActivity extends AppCompatActivity
         ((Button)findViewById(R.id.btn_location_history)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            DatePickerDialog datePickerDialog = new DatePickerDialog();
-            datePickerDialog.show(getSupportFragmentManager(), "datePickerDialog");
+            DatePickerDialogShells datePickerDialogShells = new DatePickerDialogShells();
+            datePickerDialogShells.show(getSupportFragmentManager(), "datePickerDialogShells");
 //                    openDateDialogPicker();
 //                map.getOverlays().clear();
 //                requestUserLocationHistory();
