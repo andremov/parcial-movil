@@ -100,7 +100,7 @@ public class MapActivity extends AppCompatActivity
     boolean serviceStarted = false;
 
     public void initializeGPSManager() {
-        gpsManager = new GPSManager(this, this);
+        gpsManager = new GPSManager(this, this, this);
         gpsManager.initializeLocationManager();
     }
 
@@ -127,6 +127,7 @@ public class MapActivity extends AppCompatActivity
                     btnBackLocations.setVisibility(View.INVISIBLE);
                     map.getOverlays().clear();
                     getUserLocations();
+                    centerMapAgain();
                 } else {
                     Toast.makeText(getApplicationContext(), "Ups! No hay conexión", Toast.LENGTH_SHORT). show();
                 }
@@ -158,7 +159,6 @@ public class MapActivity extends AppCompatActivity
         initializeBroadcastManagerForSocketIO();
 
         getUserLocations();
-
         postCurrentLocation();
 
         user = (User) getIntent().getSerializableExtra("user_obj");
@@ -178,6 +178,28 @@ public class MapActivity extends AppCompatActivity
             startService(intent);
             serviceStarted = true;
         }
+    }
+
+    public void centerMapAgain(){
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    Activity#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for Activity#requestPermissions for more details.
+            return;
+        }
+        this.mLocationOverlay =
+                new MyLocationNewOverlay(
+                        new GpsMyLocationProvider(
+                                this), map);
+        this.mLocationOverlay.enableMyLocation();
+        map.getOverlays().add(this.mLocationOverlay);
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        setMapCenter(location);
     }
 
     public void initializeBroadcastManagerForSocketIO() {
@@ -227,7 +249,7 @@ public class MapActivity extends AppCompatActivity
                             String json = responseJSON.getData();
 
                             if(responseJSON.isSuccess()) {
-
+                                Toast.makeText(getApplicationContext(), "Ubicacion atualizada", Toast.LENGTH_SHORT). show();
                             } else {
                                 //ALMACENAR UBICACION EN ROM DATABASE
                                 Toast.makeText(getApplicationContext(), "Ups! Error en servidor", Toast.LENGTH_SHORT). show();
@@ -236,7 +258,7 @@ public class MapActivity extends AppCompatActivity
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getApplicationContext(), "Ups! No hay conexión", Toast.LENGTH_SHORT). show();
+//                    Toast.makeText(getApplicationContext(), "Ups! No hay conexión", Toast.LENGTH_SHORT). show();
                 }
             });
 
@@ -270,7 +292,7 @@ public class MapActivity extends AppCompatActivity
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getApplicationContext(), "Ups! No hay conexión", Toast.LENGTH_SHORT). show();
+//                    Toast.makeText(getApplicationContext(), "Ups! No hay conexión", Toast.LENGTH_SHORT). show();
                 }
             });
 
@@ -334,7 +356,7 @@ public class MapActivity extends AppCompatActivity
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Ups! No hay conexión", Toast.LENGTH_SHORT). show();
+//                Toast.makeText(getApplicationContext(), "Ups! No hay conexión", Toast.LENGTH_SHORT). show();
             }
         });
 
@@ -571,7 +593,7 @@ public class MapActivity extends AppCompatActivity
     public void setMapCenter(Location location) {
         IMapController mapController =
                 map.getController();
-        mapController.setZoom(10);
+        mapController.setZoom(15);
         GeoPoint startPoint = new GeoPoint(
                 location.getLatitude(), location.getLongitude());
         mapController.setCenter(startPoint);
