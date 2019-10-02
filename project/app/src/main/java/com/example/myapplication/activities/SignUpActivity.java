@@ -67,7 +67,6 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-
         queue.add(stringRequest);
     }
 

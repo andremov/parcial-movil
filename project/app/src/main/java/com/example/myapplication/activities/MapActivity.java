@@ -108,6 +108,8 @@ public class MapActivity extends AppCompatActivity
         setContentView(R.layout.app_menu_map);
 //        hideSystemUI();
 
+        initDrawer();
+
         locations = new ArrayList<Location>();
         requests = new Requests();
         locationDrawer = new LocationDrawer();
@@ -484,7 +486,6 @@ public class MapActivity extends AppCompatActivity
         }
         super.onDestroy();
     }
-
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
