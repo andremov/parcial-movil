@@ -76,8 +76,6 @@ public class MapActivity extends AppCompatActivity
     private MapView map;
     private MyLocationNewOverlay mLocationOverlay;
     BroadcastManager broadcastManagerForSocketIO;
-    ArrayList<String> listOfMessages = new ArrayList<>();
-    ArrayAdapter<String> adapter;
     boolean serviceStarted = false;
     UserLocations[] userLocations;
     UserHistoryLocations[] userHistoryLocations;
@@ -92,12 +90,6 @@ public class MapActivity extends AppCompatActivity
     public void initializeGPSManager() {
         gpsManager = new GPSManager(this, this);
         gpsManager.initializeLocationManager();
-    }
-
-    public void initializeBroadcastManagerForSocketIO() {
-        broadcastManagerForSocketIO = new BroadcastManager(this,
-                SocketManagementService.
-                        SOCKET_SERVICE_CHANNEL, this);
     }
 
     @Override
@@ -115,7 +107,6 @@ public class MapActivity extends AppCompatActivity
         initializeGPSManager();
         initializeOSM();
         initializeBroadcastManagerForSocketIO();
-        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listOfMessages);
 
         getUserLocations();
 
@@ -132,6 +123,18 @@ public class MapActivity extends AppCompatActivity
 //                requestUserLocationHistory();
             }
         });
+
+        Intent intent=new Intent(
+                getApplicationContext(),SocketManagementService.class);
+        intent.setAction(SocketManagementService.ACTION_CONNECT);
+        startService(intent);
+        serviceStarted = true;
+    }
+
+    public void initializeBroadcastManagerForSocketIO() {
+        broadcastManagerForSocketIO = new BroadcastManager(this,
+                SocketManagementService.
+                        SOCKET_SERVICE_CHANNEL, this);
     }
 
     private void requestUserLocationHistory(){
@@ -416,9 +419,11 @@ public class MapActivity extends AppCompatActivity
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                /*
                 listOfMessages.add(message);
                 ((ListView) findViewById(R.id.messages_list_view)).setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+                 */
             }
         });
 
