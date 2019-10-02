@@ -8,22 +8,28 @@ import java.util.List;
 public abstract class Settings {
 
     static String urlAPI = "http://192.168.0.10:8080/MovilAPI/api/";
-    static String urlPush = "http://192.168.1.71:8080/MovilAPI/api/";
+    static String urlPushIP = "192.168.1.71";
+    static String urlPushPort = "9090";
 
     public static void linkAPI(String ip, String port) {
         Settings.urlAPI = "http://"+ip+":"+port+"/MovilAPI/api/";
     }
 
     public static void linkPush(String ip, String port) {
-        Settings.urlPush = "http://"+ip+":"+port+"/MovilAPI/api/";
+        Settings.urlPushIP = ip;
+        Settings.urlPushPort = port;
+    }
+
+    public static String getPushIP() {
+        return urlPushIP;
+    }
+
+    public static int getPushPort() {
+        return Integer.parseInt(urlPushPort);
     }
 
     public static String getUrlAPI() {
         return urlAPI;
-    }
-
-    public static String getUrlPush() {
-        return urlPush;
     }
 
     public static String getIPAddress(boolean useIPv4) {
