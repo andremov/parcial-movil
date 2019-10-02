@@ -54,7 +54,7 @@ public class LogInActivity extends AppCompatActivity {
 
                         doLogIn();
 
-                        ((EditText) findViewById(R.id.input_password)).getText().clear();
+                        ((EditText) findViewById(R.id.login_input_password)).getText().clear();
                     }
                 });
 
@@ -83,12 +83,13 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void doLogIn() {
+
+        String username = ((TextView)findViewById(R.id.login_input_username)).getText().toString();
+        String password = ((TextView)findViewById(R.id.login_input_password)).getText().toString();
+        String ip = Settings.getIPAddress(true);
+
         try {
             RequestQueue queue = Volley.newRequestQueue(this);
-
-            String username = ((TextView)findViewById(R.id.input_username)).getText().toString();
-            String password = ((TextView)findViewById(R.id.input_password)).getText().toString();
-            String ip = Settings.getIPAddress(true);
 
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("first_value", password);
