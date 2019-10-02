@@ -1,28 +1,20 @@
 package com.example.myapplication.activities;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
-import android.location.Location;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -30,50 +22,34 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.R;
-import com.example.myapplication.broadcast.BroadcastManager;
-import com.example.myapplication.broadcast.BroadcastManagerCallerInterface;
-import com.example.myapplication.gps.GPSManager;
-import com.example.myapplication.gps.GPSManagerCallerInterface;
-import com.example.myapplication.network.SocketManagementService;
+import com.example.myapplication.network.MessageAdapter;
+import com.example.myapplication.objects.Message;
 import com.example.myapplication.objects.ServerResponse;
 import com.example.myapplication.objects.User;
 import com.example.myapplication.objects.UserHistoryLocations;
-import com.example.myapplication.objects.UserLocations;
 import com.example.myapplication.utils.Settings;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.LinkedTreeMap;
 
-import org.osmdroid.api.IMapController;
-import org.osmdroid.config.Configuration;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.ItemizedIconOverlay;
-import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
-import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.OverlayItem;
-import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
-import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
+import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ChatActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, BroadcastManagerCallerInterface {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-    GPSManager gpsManager;
-    private MapView map;
-    private MyLocationNewOverlay mLocationOverlay;
-    BroadcastManager broadcastManagerForSocketIO;
-    ArrayList<String> listOfMessages = new ArrayList<>();
-    ArrayAdapter<String> adapter;
-    boolean serviceStarted = false;
-    UserLocations[] userLocations;
-    UserHistoryLocations[] userHistoryLocations;
-    ArrayList<OverlayItem> itemsInMap;
+
+    String lastReceived;
+    MessageAdapter adapter;
+    ListView messagesView;
     User user;
 
 
@@ -85,13 +61,130 @@ public class ChatActivity extends AppCompatActivity
 
         initDrawer();
 
+
+        ((Button)findViewById(R.id.send_button)).
+                setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        sendMessage();
+
+                        ((EditText) findViewById(R.id.message_body)).getText().clear();
+                    }
+                });
+
         user = (User) getIntent().getSerializableExtra("user_obj");
 
+        adapter = new MessageAdapter(this, user.getmUsername());
+
+        messagesView = ((ListView)findViewById(R.id.messages_list_view));
+        messagesView.setAdapter(adapter);
+
+        requestAllMessages();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
+    }
+
+    public void requestAllMessages() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrlAPI() + "messages",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
+                        ServerResponse responseJSON = gson.fromJson(response, ServerResponse.class);
+                        String data = responseJSON.getData();
+
+                        if (responseJSON.isSuccess()) {
+                            try {
+                                ArrayList<LinkedTreeMap> msgs = gson.fromJson(data, ArrayList.class);
+                                for(LinkedTreeMap message : msgs) {
+
+                                        MessageReceived(new Message((String) message.get("body"), (String) message.get("message_timestamp"), (String) message.get("sender")));
+
+                                }
+                            } catch (Exception e) { }
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "That didn't work!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        queue.add(stringRequest);
+    }
+
+    public void sendMessage() {
+        /*
+         {
+            "body": "Probando envio de mensajes 001",
+            "message_timestamp": "2019-09-29 14:53:10.15",
+            "sender": "demarchenac"
+          }
+         */
+
+        final String messageBody = ((TextView)findViewById(R.id.message_body)).getText().toString();
+        final String username = user.getmUsername();
+        final String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
+
+        try {
+            RequestQueue queue = Volley.newRequestQueue(this);
+
+            JSONObject jsonBody = new JSONObject();
+
+            jsonBody.put("body", messageBody);
+            jsonBody.put("message_timestamp", timestamp);
+            jsonBody.put("sender", username);
+
+
+            JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Settings.getUrlAPI() + "messages", jsonBody,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            String res = response.toString();
+
+                            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
+                            ServerResponse responseJSON = gson.fromJson(res, ServerResponse.class);
+                            String json = responseJSON.getData();
+
+                            if(responseJSON.isSuccess()) {
+                                try {
+                                    Message msg = new Message(messageBody, timestamp, username);
+                                    MessageReceived(msg);
+                                }catch (Exception e) { }
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "Error: "+error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            queue.add(stringRequest);
+        } catch(Exception e) { }
+    }
+
+
+    public void MessageReceived(final Message message) {
+
+        try {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.add(message);
+                    messagesView.setSelection(messagesView.getCount() - 1);
+                }
+            });
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -135,14 +228,6 @@ public class ChatActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (broadcastManagerForSocketIO != null) {
-            broadcastManagerForSocketIO.unRegister();
-        }
-        super.onDestroy();
     }
 
     public void doLogOut() {
@@ -199,24 +284,6 @@ public class ChatActivity extends AppCompatActivity
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
-    }
-
-    @Override
-    public void MessageReceivedThroughBroadcastManager(final String channel,final String type, final String message) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                listOfMessages.add(message);
-                ((ListView)findViewById(R.id.messages_list_view)).setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-            }
-        });
-
-    }
-
-    @Override
-    public void ErrorAtBroadcastManager(Exception error) {
-
     }
 
 }

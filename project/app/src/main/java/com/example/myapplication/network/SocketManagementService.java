@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.broadcast.BroadcastManager;
 import com.example.myapplication.broadcast.BroadcastManagerCallerInterface;
+import com.example.myapplication.utils.Settings;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -22,40 +23,28 @@ public class SocketManagementService extends IntentService implements ClientSock
     public static String SERVER_TO_CLIENT_MESSAGE="SERVER_TO_CLIENT_MESSAGE";
     public static String CLIENT_TO_SERVER_MESSAGE="CLIENT_TO_SERVER_MESSAGE";
 
-
-
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     public static final String ACTION_CONNECT = "com.example.myfirstapplication.network.action.ACTION_CONNECT";
     private static final String ACTION_BAZ = "com.example.myfirstapplication.network.action.BAZ";
 
-    // TODO: Rename parameters
-    private String SERVER_HOST = "172.17.9.21";
-    private int SERVER_PORT = 9090;
-
-
     public SocketManagementService() {
         super("SocketManagementService");
     }
 
-
-
-
-
-
     @Override
     protected void onHandleIntent(Intent intent) {
+        /*
         if (intent != null) {
             final String action = intent.getAction();
             if (ACTION_CONNECT.equals(action)) {
-                SERVER_HOST = intent.getStringExtra("SERVER_HOST");
-                SERVER_PORT = intent.getIntExtra("SERVER_PORT",9090);
+                */
                 initializeClientSocketManager();
                 initializeBroadcastManager();
-
+                /*
             }
-
         }
+                 */
     }
 
     /**
@@ -80,8 +69,9 @@ public class SocketManagementService extends IntentService implements ClientSock
         try{
             if(clientSocketManager==null){
                 clientSocketManager=new ClientSocketManager(
-                        SERVER_HOST,
-                        SERVER_PORT,this);
+                        Settings.getPushIP(),
+                        Settings.getPushPort(),
+                        this);
             }
         }catch (Exception error){
             Toast.makeText(this,error.getMessage(),Toast.LENGTH_LONG).show();
@@ -103,14 +93,14 @@ public class SocketManagementService extends IntentService implements ClientSock
 
     @Override
     public void MessageReceived(String message) {
+        /*
         try {
-
             if(broadcastManager!=null){
                 broadcastManager.sendBroadcast( SERVER_TO_CLIENT_MESSAGE,message);
             }
-        }catch (Exception error){
-
-        }
+        } catch (Exception error) { }
+         */
+        Toast.makeText(getApplicationContext(), "Received message from Socket!", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -120,6 +110,7 @@ public class SocketManagementService extends IntentService implements ClientSock
 
     @Override
     public void MessageReceivedThroughBroadcastManager(String channel, String type,String message) {
+        /*
         try {
             if (clientSocketManager != null) {
                 if (type.equals(CLIENT_TO_SERVER_MESSAGE)) {
@@ -129,7 +120,8 @@ public class SocketManagementService extends IntentService implements ClientSock
         }catch (Exception error){
 
         }
-
+         */
+        Toast.makeText(getApplicationContext(), "Received message from Socket! (BM)", Toast.LENGTH_LONG).show();
     }
 
     @Override

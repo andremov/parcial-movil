@@ -1,5 +1,7 @@
 package com.example.myapplication.objects;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.text.ParseException;
@@ -48,4 +50,5 @@ public class Message {
     public void setmSender(String mSender) {
         this.mSender = mSender;
     }
+
 }

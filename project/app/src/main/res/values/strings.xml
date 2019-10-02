@@ -51,5 +51,7 @@
     <string name="dialog_placeholder_location">Ubicación</string>
     <string name="dialog_btn_history">Rastrear</string>
 
+    <!-- CHAT STRINGS -->
+    <string name="message_placeholder">Escribe un conjuro</string>
 
 </resources>
