@@ -42,7 +42,7 @@ public class LogInActivity extends AppCompatActivity {
                         /*
                         Intent intetToBecalled=new
                                 Intent(getApplicationContext(),
-                                MainActivity.class);
+                                MapActivity.class);
                         intetToBecalled.putExtra("user_name",
                                 ((EditText)findViewById(
                                         R.id.input_username)).getText().toString());
@@ -126,7 +126,7 @@ public class LogInActivity extends AppCompatActivity {
 
         Intent intetToBecalled=new
                 Intent(getApplicationContext(),
-                MainActivity.class);
+                MapActivity.class);
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("user_obj", user);
