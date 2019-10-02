@@ -57,6 +57,8 @@ public class ChatActivity extends AppCompatActivity
 
     BroadcastManager broadcastManagerForSocketIO;
 
+    boolean serviceStarted = false;
+
     public void initializeBroadcastManagerForSocketIO() {
         broadcastManagerForSocketIO = new BroadcastManager(this,
                 SocketManagementService.
@@ -92,6 +94,14 @@ public class ChatActivity extends AppCompatActivity
 
         requestAllMessages();
         initializeBroadcastManagerForSocketIO();
+
+
+        if (!serviceStarted) {
+            Intent intent = new Intent(getApplicationContext(), SocketManagementService.class);
+            intent.setAction(SocketManagementService.ACTION_CONNECT);
+            startService(intent);
+            serviceStarted = true;
+        }
     }
 
     @Override
