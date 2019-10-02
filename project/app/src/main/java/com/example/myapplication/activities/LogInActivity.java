@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,19 +8,16 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.myapplication.R;
 import com.example.myapplication.objects.ServerResponse;
 import com.example.myapplication.objects.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,7 +27,6 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 public class LogInActivity extends AppCompatActivity {
-    final String url ="http://192.168.0.10:8080/MovilAPI/api/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +55,7 @@ public class LogInActivity extends AppCompatActivity {
                         ((EditText) findViewById(R.id.input_password)).getText().clear();
                     }
                 });
+
         ((Button)findViewById(R.id.go_to_register_button)).
                 setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -76,7 +73,7 @@ public class LogInActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         Intent intetToBecalled=new
                                 Intent(getApplicationContext(),
-                                LaunchActivity.class);
+                                SettingsActivity.class);
                         startActivity(intetToBecalled);
                     }
                 });
@@ -92,7 +89,7 @@ public class LogInActivity extends AppCompatActivity {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("data", password);
 
-            JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, url + "users/"+username, jsonBody,
+            JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, MainActivity.url + "users/"+username, jsonBody,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -104,12 +101,9 @@ public class LogInActivity extends AppCompatActivity {
                             String json = responseJSON.getData();
 
                             if(responseJSON.isSuccess()) {
-
-                            User user = gson.fromJson(json,User.class);
-                            Toast.makeText(LogInActivity.this, "Welcome, "+user.getmFirst_name(), Toast.LENGTH_LONG).show();
-                            goToMainActivity(user);
-
-
+                                User user = gson.fromJson(json,User.class);
+                              //  Toast.makeText(LogInActivity.this, "Welcome, "+user.getmFirst_name(), Toast.LENGTH_LONG).show();
+                                goToMainActivity(user);
                             }
                         }
                     }, new Response.ErrorListener() {
@@ -125,5 +119,17 @@ public class LogInActivity extends AppCompatActivity {
 
     private void goToMainActivity(User user) {
 
+        Intent intetToBecalled=new
+                Intent(getApplicationContext(),
+                MainActivity.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("user_obj", user);
+
+        intetToBecalled.putExtras(bundle);
+
+        finish();
+
+        startActivity(intetToBecalled);
     }
 }

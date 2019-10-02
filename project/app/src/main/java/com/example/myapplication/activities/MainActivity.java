@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activities;
 
 import android.Manifest;
 import android.content.Context;
@@ -17,17 +17,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import android.preference.PreferenceManager;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
-import androidx.core.view.GravityCompat;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 
-import android.view.MenuItem;
-
+import com.example.myapplication.R;
 import com.example.myapplication.broadcast.BroadcastManager;
 import com.example.myapplication.broadcast.BroadcastManagerCallerInterface;
 import com.example.myapplication.gps.GPSManager;
@@ -37,19 +33,12 @@ import com.example.myapplication.objects.ServerResponse;
 import com.example.myapplication.objects.User;
 import com.example.myapplication.objects.UserHistoryLocations;
 import com.example.myapplication.objects.UserLocations;
-import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.view.Menu;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,7 +52,6 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.OverlayItem;
-import org.osmdroid.views.overlay.infowindow.InfoWindow;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -71,6 +59,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements GPSManagerCallerInterface, BroadcastManagerCallerInterface {
+
 
     GPSManager gpsManager;
     private MapView map;
@@ -84,8 +73,6 @@ public class MainActivity extends AppCompatActivity
     ArrayList<OverlayItem> itemsInMap;
     String lastMarkerClicked;
 
-    //    final String url ="http://localhost:8080/MovilAPI/api/";
-    final String url = "http://192.168.1.71:8080/MovilAPI/api/";
 
     ArrayList<Location> locations;
 
@@ -118,6 +105,12 @@ public class MainActivity extends AppCompatActivity
 //        toggle.syncState();
 //        navigationView.setNavigationItemSelectedListener(this);
 
+        User user = (User) getIntent().getSerializableExtra("user_obj");
+
+
+        Toast.makeText(  this, "Welcome, " + user.getmFirst_name(), Toast.LENGTH_SHORT). show();
+
+/*
         String user = getIntent().getExtras().
                 getString("user_name");
         Toast.makeText(
@@ -139,7 +132,7 @@ public class MainActivity extends AppCompatActivity
 
         getUserLocations();
 
-
+*/
         //MODIFICAR *************************************
 
         //CREACIÓN DE PINES CLICKEABLES
