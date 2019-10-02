@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.android.volley.Request;
@@ -38,7 +39,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -59,7 +63,7 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity
+public class MapActivity extends AppCompatActivity
         implements GPSManagerCallerInterface, BroadcastManagerCallerInterface {
 
     GPSManager gpsManager;
@@ -90,7 +94,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_map);
+        setContentView(R.layout.app_menu_map);
+
 
         locations = new ArrayList<Location>();
 
@@ -117,7 +122,7 @@ public class MainActivity extends AppCompatActivity
                 this,
                 "Welcome " + user, Toast.LENGTH_SHORT).
                 show();
->>>>>>> 2ca4d6a85336770776fec84ac429fbee06e21ba7:project/app/src/main/java/com/example/myapplication/activities/MainActivity.java
+>>>>>>> 2ca4d6a85336770776fec84ac429fbee06e21ba7:project/app/src/main/java/com/example/myapplication/activities/MapActivity.java
         ((Button)findViewById(R.id.btn_location_history)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -448,6 +453,25 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.menu_chat) {
+
+        } else if (id == R.id.menu_logout) {
+
+
+        } else if (id == R.id.menu_map) {
+
+        }
+
+        DrawerLayout drawer = findViewById(R.id.nav_view);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
     @Override
     public void ErrorAtBroadcastManager(Exception error) {
 
@@ -461,30 +485,4 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            hideSystemUI();
-        }
-    }
-
-    private void hideSystemUI() {
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_IMMERSIVE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
-    }
-
-    private void showSystemUI() {
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-    }
 }

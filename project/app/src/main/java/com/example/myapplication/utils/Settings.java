@@ -1,7 +1,5 @@
 package com.example.myapplication.utils;
 
-import android.view.View;
-
 public abstract class Settings {
 
     static String urlAPI = "http://192.168.0.20:8080/MovilAPI/api/";
@@ -12,7 +10,7 @@ public abstract class Settings {
     }
 
     public static void linkPush(String ip, String port) {
-        Settings.urlAPI = "http://"+ip+":"+port+"/MovilAPI/api/";
+        Settings.urlPush = "http://"+ip+":"+port+"/MovilAPI/api/";
     }
 
     public static String getUrlAPI() {

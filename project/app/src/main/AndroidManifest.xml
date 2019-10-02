@@ -20,7 +20,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.MapActivity"
             android:theme="@style/AppTheme"/>
 
         <activity android:name=".activities.LogInActivity">
