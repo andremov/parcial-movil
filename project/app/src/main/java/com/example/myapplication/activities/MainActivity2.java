@@ -1,7 +1,6 @@
 package com.example.myapplication.activities;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,12 +40,6 @@ import com.google.gson.GsonBuilder;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.widget.ArrayAdapter;
-<<<<<<< HEAD:project/app/src/main/java/com/example/myapplication/MainActivity.java
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-=======
->>>>>>> 2ca4d6a85336770776fec84ac429fbee06e21ba7:project/app/src/main/java/com/example/myapplication/activities/MainActivity.java
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,12 +73,7 @@ public class MainActivity extends AppCompatActivity
     ArrayList<OverlayItem> itemsInMap;
     String lastMarkerClicked;
 
-<<<<<<< HEAD:project/app/src/main/java/com/example/myapplication/MainActivity.java
-    //    final String url ="http://localhost:8080/MovilAPI/api/";
-//    final String url = "http://192.168.1.71:8080/MovilAPI/api/";
     final String url = "http://192.168.0.20:8080/MovilAPI/api/";
-=======
->>>>>>> 2ca4d6a85336770776fec84ac429fbee06e21ba7:project/app/src/main/java/com/example/myapplication/activities/MainActivity.java
 
     ArrayList<Location> locations;
 
@@ -107,10 +95,8 @@ public class MainActivity extends AppCompatActivity
 
         locations = new ArrayList<Location>();
 
-<<<<<<< HEAD:project/app/src/main/java/com/example/myapplication/MainActivity.java
         String user = getIntent().getExtras().getString("user_name");
         Toast.makeText(this,"Welcome " + user, Toast.LENGTH_SHORT).show();
-=======
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
