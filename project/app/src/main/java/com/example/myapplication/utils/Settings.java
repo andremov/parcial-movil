@@ -2,7 +2,7 @@ package com.example.myapplication.utils;
 
 public abstract class Settings {
 
-    static String urlAPI = "http://192.168.0.10:8080/MovilAPI/api/";
+    static String urlAPI = "http://192.168.0.20:8080/MovilAPI/api/";
     static String urlPush = "http://192.168.1.71:8080/MovilAPI/api/";
 
     public static void linkAPI(String ip, String port) {

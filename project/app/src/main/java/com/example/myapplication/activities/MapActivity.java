@@ -26,6 +26,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import com.example.myapplication.DatePickerDialog;
 import com.example.myapplication.R;
 import com.example.myapplication.broadcast.BroadcastManager;
 import com.example.myapplication.broadcast.BroadcastManagerCallerInterface;
@@ -51,6 +52,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -105,46 +107,20 @@ public class MapActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_menu_map);
 
-
         locations = new ArrayList<Location>();
         requests = new Requests();
         locationDrawer = new LocationDrawer();
 
-//        userLocations = requests.getUserLocations(this);
+        initializeGPSManager();
+        initializeOSM();
+        initializeBroadcastManagerForSocketIO();
+        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listOfMessages);
 
         getUserLocations();
 
-//        locationDrawer.drawUsersLocations(userLocations, map, this);
-//        lastMarkerClicked = locationDrawer.getLastMarkerClicked();
-
-
-
-
-
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
-//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//        NavigationView navigationView = findViewById(R.id.nav_view);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
-//        navigationView.setNavigationItemSelectedListener(this);
-
-
         user = (User) getIntent().getSerializableExtra("user_obj");
-
         Toast.makeText(  this, "Welcome, " + user.getmFirst_name(), Toast.LENGTH_SHORT). show();
 
-/*
-        String user = getIntent().getExtras().
-                getString("user_name");
-        Toast.makeText(
-                this,
-                "Welcome " + user, Toast.LENGTH_SHORT).
-                show();
->>>>>>> 2ca4d6a85336770776fec84ac429fbee06e21ba7:project/app/src/main/java/com/example/myapplication/activities/MapActivity.java
         ((Button)findViewById(R.id.btn_location_history)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,44 +131,6 @@ public class MapActivity extends AppCompatActivity
 //                requestUserLocationHistory();
             }
         });
-
-        initializeGPSManager();
-        initializeOSM();
-        initializeBroadcastManagerForSocketIO();
-        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listOfMessages);
-
-        getUserLocations();
-
-*/
-        //MODIFICAR *************************************
-
-        //CREACIÓN DE PINES CLICKEABLES
-
-        //your items
-//        itemsInMap = new ArrayList<OverlayItem>();
-//        itemsInMap.add(new OverlayItem("Agua", "El marcador en el agua derecha", new GeoPoint(11.038239, -74.665461))); // Lat/Lon decimal degrees
-//        itemsInMap.add(new OverlayItem("Agua 2", "El marcador en el agua izquierda", new GeoPoint(11.058781, -74.934484))); // Lat/Lon decimal degrees
-
-//        //the overlay
-//        ItemizedOverlayWithFocus<OverlayItem> mOverlay = new ItemizedOverlayWithFocus<OverlayItem>(items,
-//                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-//                    @Override
-//                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-//                        Toast.makeText(getApplicationContext(), "SINGLE CLICK" + index, Toast.LENGTH_SHORT).show();
-//                        return true;
-//                    }
-//
-//                    @Override
-//                    public boolean onItemLongPress(final int index, final OverlayItem item) {
-//                        return false;
-//                    }
-//                }, this);
-//        mOverlay.setFocusItemsOnTap(true);
-//
-//        map.getOverlays().add(mOverlay);
-
-
-        //MODIFICAR *************************************
     }
 
     private void requestUserLocationHistory(){
