@@ -22,6 +22,9 @@
         <activity
             android:name=".activities.MapActivity"
             android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".activities.ChatActivity"
+            android:theme="@style/AppTheme"/>
 
         <activity android:name=".activities.LogInActivity">
             <intent-filter>

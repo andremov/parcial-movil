@@ -52,7 +52,7 @@ public class LogInActivity extends AppCompatActivity {
                         startActivity(intetToBecalled);
                         */
 
-                        httpRequestTest();
+                        doLogIn();
 
                         ((EditText) findViewById(R.id.input_password)).getText().clear();
                     }
@@ -82,15 +82,17 @@ public class LogInActivity extends AppCompatActivity {
                 });
     }
 
-    private void httpRequestTest() {
+    private void doLogIn() {
         try {
             RequestQueue queue = Volley.newRequestQueue(this);
 
             String username = ((TextView)findViewById(R.id.input_username)).getText().toString();
             String password = ((TextView)findViewById(R.id.input_password)).getText().toString();
+            String ip = Settings.getIPAddress(true);
 
             JSONObject jsonBody = new JSONObject();
-            jsonBody.put("data", password);
+            jsonBody.put("first_value", password);
+            jsonBody.put("last_value", ip);
 
             JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Settings.getUrlAPI() + "users/"+username, jsonBody,
                     new Response.Listener<JSONObject>() {
@@ -105,7 +107,7 @@ public class LogInActivity extends AppCompatActivity {
                             if(responseJSON.isSuccess()) {
                                 User user = gson.fromJson(json,User.class);
 
-                                goToMainActivity(user);
+                                goToMapActivity(user);
                             } else {
                                 Toast.makeText(getApplicationContext(), "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
                             }
@@ -121,7 +123,7 @@ public class LogInActivity extends AppCompatActivity {
         } catch(Exception e) { }
     }
 
-    private void goToMainActivity(User user) {
+    private void goToMapActivity(User user) {
         Intent intetToBecalled=new
                 Intent(getApplicationContext(),
                 MapActivity.class);
@@ -143,7 +145,7 @@ public class LogInActivity extends AppCompatActivity {
 //            hideSystemUI();
         }
     }
-    
+
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(

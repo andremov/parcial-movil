@@ -26,6 +26,8 @@ public class User implements Serializable {
     private String mStatus;
     @SerializedName("lastSeen")
     private Date mLastSeen;
+    @SerializedName("ip")
+    private String ip;
 
     public User() throws ParseException {
     }
@@ -33,7 +35,7 @@ public class User implements Serializable {
     public User(
             String username, String first_name, String last_name, String name,
             String email, String lastLat, String lastLon, String status,
-            String lastSeen
+            String lastSeen, String ip
     ) throws ParseException {
         this.mUsername = username;
         this.mFirst_name = first_name;
@@ -44,6 +46,7 @@ public class User implements Serializable {
         this.mLastLon = Double.parseDouble(lastLon);
         this.mStatus = status;
         this.mLastSeen = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(lastSeen);
+        this.ip = ip;
     }
 
     public String getmUsername() {
@@ -116,5 +119,13 @@ public class User implements Serializable {
 
     public void setmLastSeen(Date mLastSeen) {
         this.mLastSeen = mLastSeen;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 }

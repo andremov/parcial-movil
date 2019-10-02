@@ -36,13 +36,6 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 });
 
-        ((Button)findViewById(R.id.back_button)).
-                setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        finish();
-                    }
-                });
     }
 
 
@@ -66,7 +59,6 @@ public class SignUpActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
 
         queue.add(stringRequest);
     }
