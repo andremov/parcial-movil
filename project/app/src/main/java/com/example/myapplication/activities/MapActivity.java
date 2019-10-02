@@ -161,11 +161,12 @@ public class MapActivity extends AppCompatActivity
             }
         });
 
-        Intent intent=new Intent(
-                getApplicationContext(),SocketManagementService.class);
-        intent.setAction(SocketManagementService.ACTION_CONNECT);
-        startService(intent);
-        serviceStarted = true;
+        if (!serviceStarted) {
+            Intent intent = new Intent(this, SocketManagementService.class);
+            intent.setAction(SocketManagementService.ACTION_CONNECT);
+            startService(intent);
+            serviceStarted = true;
+        }
     }
 /*
     public void initializeBroadcastManagerForSocketIO() {
@@ -658,7 +659,7 @@ public class MapActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            doLogOut();
         }
     }
 

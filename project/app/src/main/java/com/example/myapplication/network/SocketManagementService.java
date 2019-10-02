@@ -30,13 +30,13 @@ public class SocketManagementService extends IntentService implements ClientSock
     public SocketManagementService() {
         super("SocketManagementService");
 
-
         Toast.makeText(this,"constructor",Toast.LENGTH_LONG).show();
 
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        int a = 1;
         /*
         if (intent != null) {
             final String action = intent.getAction();
