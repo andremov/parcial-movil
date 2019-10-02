@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.utils.Settings;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -19,9 +21,10 @@ public class SettingsActivity extends AppCompatActivity {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // PUT EXTRAS DE INFO DE SERVER
-                        // IP
-                        // PORT
+                        String ip = ((TextView)findViewById(R.id.server_ip_txt)).getText().toString();
+                        String port = ((TextView)findViewById(R.id.server_port_txt)).getText().toString();
+                        Settings.linkServer(ip, port);
+                        
                         finish();
                     }
                 });

@@ -75,6 +75,7 @@ public class LogInActivity extends AppCompatActivity {
                         Intent intetToBecalled=new
                                 Intent(getApplicationContext(),
                                 SettingsActivity.class);
+
                         startActivity(intetToBecalled);
                     }
                 });
