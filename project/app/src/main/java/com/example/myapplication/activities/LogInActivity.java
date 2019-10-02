@@ -105,14 +105,16 @@ public class LogInActivity extends AppCompatActivity {
 
                             if(responseJSON.isSuccess()) {
                                 User user = gson.fromJson(json,User.class);
-                              
+
                                 goToMainActivity(user);
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Error: "+error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -143,6 +145,8 @@ public class LogInActivity extends AppCompatActivity {
             hideSystemUI();
         }
     }
+
+
 
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();

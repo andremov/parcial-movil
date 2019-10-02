@@ -12,7 +12,7 @@ public abstract class Settings {
     }
 
     public static void linkPush(String ip, String port) {
-        Settings.urlAPI = "http://"+ip+":"+port+"/MovilAPI/api/";
+        Settings.urlPush = "http://"+ip+":"+port+"/MovilAPI/api/";
     }
 
     public static String getUrlAPI() {
