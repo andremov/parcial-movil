@@ -15,7 +15,7 @@ import com.example.myapplication.utils.Settings;
  * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
  */
-public class SocketManagementService extends IntentService implements ClientSocketManagerCallerInterface, BroadcastManagerCallerInterface {
+public class SocketManagementService extends IntentService implements ClientSocketManagerCallerInterface{
 
     ClientSocketManager clientSocketManager;
     //BroadcastManager broadcastManager;
@@ -30,25 +30,23 @@ public class SocketManagementService extends IntentService implements ClientSock
     public SocketManagementService() {
         super("SocketManagementService");
 
-        Toast.makeText(this,"constructor",Toast.LENGTH_LONG).show();
-
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        int a = 1;
-        /*
+
         if (intent != null) {
             final String action = intent.getAction();
             if (ACTION_CONNECT.equals(action)) {
-                */
                 initializeClientSocketManager();
-                //initializeBroadcastManager();
-                Toast.makeText(this,"init",Toast.LENGTH_LONG).show();
-                /*
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                clientSocketManager.sendMessage("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             }
         }
-                 */
     }
 
     /**
@@ -73,24 +71,12 @@ public class SocketManagementService extends IntentService implements ClientSock
         try{
             if(clientSocketManager==null){
                 clientSocketManager=new ClientSocketManager( Settings.getPushIP(), Settings.getPushPort(), this);
-                Toast.makeText(this,"created client socket manager",Toast.LENGTH_LONG).show();
+                clientSocketManager.run();
             }
         }catch (Exception error){
-            Toast.makeText(this,error.getMessage(),Toast.LENGTH_LONG).show();
+
         }
     }
-/*
-    public void initializeBroadcastManager(){
-        try{
-            if(broadcastManager == null){
-                broadcastManager=new BroadcastManager(getApplicationContext(), SOCKET_SERVICE_CHANNEL,this);
-                Toast.makeText(this,"created broadcast manager",Toast.LENGTH_LONG).show();
-            }
-        }catch (Exception error){
-            Toast.makeText(this,error.getMessage(),Toast.LENGTH_LONG).show();
-        }
-    }
-*/
 
     @Override
     public void MessageReceived(String message) {
@@ -101,42 +87,23 @@ public class SocketManagementService extends IntentService implements ClientSock
             }
         } catch (Exception error) { }
          */
-        Toast.makeText(getApplicationContext(), "Received message from Socket!", Toast.LENGTH_LONG).show();
-    }
+        System.out.println(message);
+        if(message.equals("ping")) {
+            clientSocketManager.sendMessage("pong");
+        }else if(message.equals("update@locations")){
 
-    @Override
-    public void ErrorFromSocketManager(Exception error) {
-
-    }
-
-    @Override
-    public void MessageReceivedThroughBroadcastManager(String channel, String type,String message) {
-        /*
-        try {
-            if (clientSocketManager != null) {
-                if (type.equals(CLIENT_TO_SERVER_MESSAGE)) {
-                    clientSocketManager.sendMessage(message);
-                }
-            }
-        }catch (Exception error){
+        }else if(message.equals("update@messages")){
 
         }
-         */
-        Toast.makeText(getApplicationContext(), "Received message from Socket! (BM)", Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void ErrorAtBroadcastManager(Exception error) {
-
-    }
+    public void ErrorFromSocketManager(Exception error) { }
 
     @Override
     public void onDestroy() {
-        /*
-        if(broadcastManager!=null){
-            broadcastManager.unRegister();
-        }
-         */
+
+        clientSocketManager=null;
         super.onDestroy();
     }
 }

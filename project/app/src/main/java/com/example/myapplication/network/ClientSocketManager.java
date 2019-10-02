@@ -1,5 +1,7 @@
 package com.example.myapplication.network;
 
+import android.os.AsyncTask;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -18,7 +20,6 @@ public class ClientSocketManager extends Thread{
         this.serverHost = serverHost;
         this.port = port;
         this.caller = caller;
-        start();
     }
 
     public boolean initializeClientSocketManager(){
@@ -60,9 +61,24 @@ public class ClientSocketManager extends Thread{
         }
     }
 
-    public void sendMessage(String message){
+    public void sendMessage(final String message){
         try{
-            writer.write(message+"\n");
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground( final Void ... params ) {
+                    writer.write(message+"\n");
+                    writer.flush();
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute( final Void result ) {
+                    // continue what you are doing...
+
+
+                }
+            }.execute();
+
         }catch (Exception error){
             caller.ErrorFromSocketManager(error);
         }
