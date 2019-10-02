@@ -26,7 +26,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.R;
+import com.example.myapplication.broadcast.BroadcastManager;
+import com.example.myapplication.broadcast.BroadcastManagerCallerInterface;
 import com.example.myapplication.network.MessageAdapter;
+import com.example.myapplication.network.SocketManagementService;
 import com.example.myapplication.objects.Message;
 import com.example.myapplication.objects.ServerResponse;
 import com.example.myapplication.objects.User;
@@ -44,7 +47,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ChatActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, BroadcastManagerCallerInterface {
 
 
     String lastReceived;
@@ -52,6 +55,13 @@ public class ChatActivity extends AppCompatActivity
     ListView messagesView;
     User user;
 
+    BroadcastManager broadcastManagerForSocketIO;
+
+    public void initializeBroadcastManagerForSocketIO() {
+        broadcastManagerForSocketIO = new BroadcastManager(this,
+                SocketManagementService.
+                        SOCKET_SERVICE_CHANNEL, this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +91,7 @@ public class ChatActivity extends AppCompatActivity
         messagesView.setAdapter(adapter);
 
         requestAllMessages();
+        initializeBroadcastManagerForSocketIO();
     }
 
     @Override
@@ -338,4 +349,21 @@ public class ChatActivity extends AppCompatActivity
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
+    @Override
+    public void MessageReceivedThroughBroadcastManager(String channel, String type, String message) {
+
+        //System.out.println("--- [MAP ACTIVITY] --- " +message);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                requestNewMessages();
+            }
+        });
+    }
+
+    @Override
+    public void ErrorAtBroadcastManager(Exception error) {
+
+    }
 }
