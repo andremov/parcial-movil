@@ -1,7 +1,8 @@
 package com.example.myapplication.utils;
 
 import android.content.Context;
-import android.widget.Toast;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 
 import com.example.myapplication.R;
 import com.example.myapplication.objects.UserLocations;
@@ -21,11 +22,17 @@ public class LocationDrawer {
             startMarker.setPosition(new GeoPoint(ul.getmLat(), ul.getmLon()));
             startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             map.getOverlays().add(startMarker);
+            Drawable icon;
+
             if (ul.getmStatus().equals("online")) {
-                startMarker.setIcon(context.getResources().getDrawable(R.drawable.ic_location_online));
+                icon = context.getResources().getDrawable(R.drawable.ic_location);
+                icon.setTint(Color.argb(255, 38, 139, 45));
             } else {
-                startMarker.setIcon(context.getResources().getDrawable(R.drawable.ic_location_offline));
+                icon = context.getResources().getDrawable(R.drawable.ic_location);
+                icon.setTint(Color.argb(255, 200, 49, 38));
             }
+
+            startMarker.setIcon(icon);
             startMarker.setTitle(ul.getmUsername());
             startMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
                 @Override
