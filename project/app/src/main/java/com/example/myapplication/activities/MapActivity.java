@@ -90,6 +90,8 @@ public class MapActivity extends AppCompatActivity
     Requests requests;
     ArrayList<Location> locations;
 
+    Button btnHistoryLocations, btnBackLocations;
+
     //BroadcastManager broadcastManagerForSocketIO;
     boolean serviceStarted = false;
 
@@ -104,7 +106,23 @@ public class MapActivity extends AppCompatActivity
         setContentView(R.layout.app_menu_map);
 //        hideSystemUI();
 
+        btnHistoryLocations = (Button) findViewById(R.id.btn_location_history);
+        btnBackLocations = (Button) findViewById(R.id.btn_back_locations);
+
+        btnHistoryLocations.setVisibility(View.VISIBLE);
+        btnBackLocations.setVisibility(View.INVISIBLE);
+
         initDrawer();
+
+        btnBackLocations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnHistoryLocations.setVisibility(View.VISIBLE);
+                btnBackLocations.setVisibility(View.INVISIBLE);
+                map.getOverlays().clear();
+                getUserLocations();
+            }
+        });
 
         ((Button)findViewById(R.id.btn_location_history)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -314,9 +332,14 @@ public class MapActivity extends AppCompatActivity
     }
 
     public void drawUsersHistoryLocations(){
-        for(UserHistoryLocations ul : userHistoryLocations) {
+        map.getOverlays().clear();
+        btnHistoryLocations.setVisibility(View.INVISIBLE);
+        btnBackLocations.setVisibility(View.VISIBLE);
+        for(UserHistoryLocations ul : userHistoryLocations) {;
             Marker startMarker = new Marker(map);
             startMarker.setPosition(new GeoPoint(ul.getmLat(), ul.getmLon()));
+            startMarker.setTitle(ul.getmUsername());
+            startMarker.setTextIcon(ul.getmLocation_timestamp());
             startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             map.getOverlays().add(startMarker);
 

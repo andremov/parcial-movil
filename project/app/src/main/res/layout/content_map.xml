@@ -26,7 +26,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Ver Historial" />
+            android:text="Ver Historial"
+            android:visibility="visible"/>
+
+        <Button
+            android:id="@+id/btn_back_locations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Regresar"
+            android:visibility="invisible"/>
 
     </LinearLayout>
 

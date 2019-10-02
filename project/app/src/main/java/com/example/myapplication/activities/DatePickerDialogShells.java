@@ -131,47 +131,40 @@ public class DatePickerDialogShells extends BottomSheetDialogFragment {
         btnSearchInDates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().remove(getTargetFragment()).commit();
+                try {
+                    RequestQueue queue = Volley.newRequestQueue((MapActivity)getActivity());
+
+                    JSONObject jsonBody = new JSONObject();
+                    jsonBody.put("first_value", startSearchDate);
+                    jsonBody.put("last_value", endSearchDate);
+
+                    JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Settings.getUrlAPI() + "locations/" + ((MapActivity) getActivity()).getLastMarkerClicked(), jsonBody,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    String res = response.toString();
+                                    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
+                                    ServerResponse responseJSON = gson.fromJson(res, ServerResponse.class);
+                                    if(responseJSON.isSuccess()) {
+                                        String data = responseJSON.getData();
+                                        UserHistoryLocations[] userHistoryLocations = gson.fromJson(data, UserHistoryLocations[].class);
+                                        ((MapActivity) getActivity()).setUserHistoryLocations(userHistoryLocations);
+                                        ((MapActivity) getActivity()).drawUsersHistoryLocations();
+                                    } else {
+                                        Toast.makeText((MapActivity) getActivity(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText((MapActivity) getActivity(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.e("ERROR", "Error occurred ", error);
+                        }
+                    });
+                    queue.add(stringRequest);
+                } catch(Exception e) { }
             }
         });
-
-//        btnSearchInDates.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                try {
-//                    RequestQueue queue = Volley.newRequestQueue((MapActivity)getActivity());
-//
-//                    JSONObject jsonBody = new JSONObject();
-//                    jsonBody.put("first_value", startSearchDate);
-//                    jsonBody.put("last_value", endSearchDate);
-//
-//                    JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Settings.getUrlAPI() + "locations/" + ((MapActivity) getActivity()).getLastMarkerClicked(), jsonBody,
-//                            new Response.Listener<JSONObject>() {
-//                                @Override
-//                                public void onResponse(JSONObject response) {
-//                                    String res = response.toString();
-//                                    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
-//                                    ServerResponse responseJSON = gson.fromJson(res, ServerResponse.class);
-//                                    if(responseJSON.isSuccess()) {
-//                                        String data = responseJSON.getData();
-//                                        UserHistoryLocations[] userHistoryLocations = gson.fromJson(data, UserHistoryLocations[].class);
-//                                        ((MapActivity) getActivity()).setUserHistoryLocations(userHistoryLocations);
-//                                        ((MapActivity) getActivity()).drawUsersHistoryLocations();
-//                                    } else {
-//                                        Toast.makeText((MapActivity) getActivity(), "Error de conexión", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                }
-//                            }, new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//                            Toast.makeText((MapActivity) getActivity(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-//                            Log.e("ERROR", "Error occurred ", error);
-//                        }
-//                    });
-//                    queue.add(stringRequest);
-//                } catch(Exception e) { }
-//            }
-//        });
 
         return view;
     }
