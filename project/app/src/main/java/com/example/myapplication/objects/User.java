@@ -2,11 +2,12 @@ package com.example.myapplication.objects;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
     @SerializedName("username")
     private String mUsername;
     @SerializedName("first_name")

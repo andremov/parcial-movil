@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activities;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -18,17 +18,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import android.preference.PreferenceManager;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
-import androidx.core.view.GravityCompat;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 
-import android.view.MenuItem;
-
+import com.example.myapplication.R;
 import com.example.myapplication.broadcast.BroadcastManager;
 import com.example.myapplication.broadcast.BroadcastManagerCallerInterface;
 import com.example.myapplication.gps.GPSManager;
@@ -38,20 +34,19 @@ import com.example.myapplication.objects.ServerResponse;
 import com.example.myapplication.objects.User;
 import com.example.myapplication.objects.UserHistoryLocations;
 import com.example.myapplication.objects.UserLocations;
-import com.google.android.material.navigation.NavigationView;
+import com.example.myapplication.utils.Settings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.view.Menu;
 import android.widget.ArrayAdapter;
+<<<<<<< HEAD:project/app/src/main/java/com/example/myapplication/MainActivity.java
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+=======
+>>>>>>> 2ca4d6a85336770776fec84ac429fbee06e21ba7:project/app/src/main/java/com/example/myapplication/activities/MainActivity.java
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,7 +60,6 @@ import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.OverlayItem;
-import org.osmdroid.views.overlay.infowindow.InfoWindow;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -86,9 +80,12 @@ public class MainActivity extends AppCompatActivity
     ArrayList<OverlayItem> itemsInMap;
     String lastMarkerClicked;
 
+<<<<<<< HEAD:project/app/src/main/java/com/example/myapplication/MainActivity.java
     //    final String url ="http://localhost:8080/MovilAPI/api/";
 //    final String url = "http://192.168.1.71:8080/MovilAPI/api/";
     final String url = "http://192.168.0.20:8080/MovilAPI/api/";
+=======
+>>>>>>> 2ca4d6a85336770776fec84ac429fbee06e21ba7:project/app/src/main/java/com/example/myapplication/activities/MainActivity.java
 
     ArrayList<Location> locations;
 
@@ -110,8 +107,34 @@ public class MainActivity extends AppCompatActivity
 
         locations = new ArrayList<Location>();
 
+<<<<<<< HEAD:project/app/src/main/java/com/example/myapplication/MainActivity.java
         String user = getIntent().getExtras().getString("user_name");
         Toast.makeText(this,"Welcome " + user, Toast.LENGTH_SHORT).show();
+=======
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+
+//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//        NavigationView navigationView = findViewById(R.id.nav_view);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.addDrawerListener(toggle);
+//        toggle.syncState();
+//        navigationView.setNavigationItemSelectedListener(this);
+
+        User user = (User) getIntent().getSerializableExtra("user_obj");
+
+
+        Toast.makeText(  this, "Welcome, " + user.getmFirst_name(), Toast.LENGTH_SHORT). show();
+
+/*
+        String user = getIntent().getExtras().
+                getString("user_name");
+        Toast.makeText(
+                this,
+                "Welcome " + user, Toast.LENGTH_SHORT).
+                show();
+>>>>>>> 2ca4d6a85336770776fec84ac429fbee06e21ba7:project/app/src/main/java/com/example/myapplication/activities/MainActivity.java
         ((Button)findViewById(R.id.btn_location_history)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,7 +153,7 @@ public class MainActivity extends AppCompatActivity
 
         getUserLocations();
 
-
+*/
         //MODIFICAR *************************************
 
         //CREACIÓN DE PINES CLICKEABLES
@@ -165,7 +188,7 @@ public class MainActivity extends AppCompatActivity
     private void requestUserLocationHistory(){
         RequestQueue queue = Volley.newRequestQueue(this);
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "locations/" + lastMarkerClicked,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrl() + "locations/" + lastMarkerClicked,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -190,7 +213,7 @@ public class MainActivity extends AppCompatActivity
     private void getUserLocations() {
         RequestQueue queue = Volley.newRequestQueue(this);
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "locations",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrl() + "locations",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -294,7 +317,7 @@ public class MainActivity extends AppCompatActivity
         RequestQueue queue = Volley.newRequestQueue(this);
 
 // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "users/demarchenac",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrl() + "users/demarchenac",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
