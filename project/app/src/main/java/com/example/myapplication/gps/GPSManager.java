@@ -10,15 +10,18 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 
+import com.example.myapplication.activities.MapActivity;
+
 public class GPSManager implements LocationListener {
     private Activity activity;
+    private MapActivity mapActivity;
     private GPSManagerCallerInterface caller;
 
     LocationManager locationManager;
 
-    public GPSManager(Activity activity,
+    public GPSManager(MapActivity mapActivity,
                       GPSManagerCallerInterface caller) {
-        this.activity = activity;
+        this.mapActivity = mapActivity;
         this.caller = caller;
     }
 
@@ -60,6 +63,7 @@ public class GPSManager implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         caller.locationHasBeenReceived(location);
+        mapActivity.postCurrentLocation();
     }
 
     @Override
