@@ -380,7 +380,7 @@ public class MapActivity extends AppCompatActivity
                 @Override
                 public boolean onMarkerClick(Marker marker, MapView mapView) {
                     lastMarkerClicked = marker.getTitle();
-                    Toast.makeText(getApplicationContext(), marker.getTitle(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), lastMarkerClicked, Toast.LENGTH_SHORT).show();
                     return false;
                 }
             });
