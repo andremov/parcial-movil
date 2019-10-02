@@ -16,7 +16,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_server_settings);
-        hideSystemUI();
+//        hideSystemUI();
 
         ((Button)findViewById(R.id.link_server)).
                 setOnClickListener(new View.OnClickListener() {
@@ -43,7 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-            hideSystemUI();
+//            hideSystemUI();
         }
     }
 

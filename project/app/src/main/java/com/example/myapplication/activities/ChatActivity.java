@@ -81,7 +81,7 @@ public class ChatActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_menu_chat);
-        hideSystemUI();
+//        hideSystemUI();
 
         initDrawer();
 
@@ -151,7 +151,7 @@ public class ChatActivity extends AppCompatActivity
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-            hideSystemUI();
+//            hideSystemUI();
         }
     }
 

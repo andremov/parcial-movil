@@ -104,7 +104,7 @@ public class MapActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_menu_map);
-        hideSystemUI();
+//        hideSystemUI();
 
 
         locations = new ArrayList<Location>();
@@ -552,10 +552,10 @@ public class MapActivity extends AppCompatActivity
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-            hideSystemUI();
+//            hideSystemUI();
         }
     }
-    
+
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
