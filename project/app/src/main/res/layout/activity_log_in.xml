@@ -62,7 +62,8 @@
             android:backgroundTint="@android:color/white"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/placeholder_username"
+            android:hint="@string/placeholder_username"
+            android:textColorHint="@android:color/darker_gray"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.517"
@@ -88,7 +89,8 @@
             android:backgroundTint="@android:color/white"
             android:ems="10"
             android:inputType="textPassword"
-            android:text="@string/placeholder_password"
+            android:hint="@string/placeholder_password"
+            android:textColorHint="@android:color/darker_gray"
             android:textColor="@android:color/white"
             />
 
