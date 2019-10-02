@@ -33,6 +33,7 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+        hideSystemUI();
 
         ((Button)findViewById(R.id.login_button)).
                 setOnClickListener(new View.OnClickListener() {
@@ -104,7 +105,7 @@ public class LogInActivity extends AppCompatActivity {
 
                             if(responseJSON.isSuccess()) {
                                 User user = gson.fromJson(json,User.class);
-                              //  Toast.makeText(LogInActivity.this, "Welcome, "+user.getmFirst_name(), Toast.LENGTH_LONG).show();
+                              
                                 goToMainActivity(user);
                             }
                         }
@@ -154,11 +155,4 @@ public class LogInActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
-    private void showSystemUI() {
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-    }
 }
