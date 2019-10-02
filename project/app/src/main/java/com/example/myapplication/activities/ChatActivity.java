@@ -62,7 +62,7 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, BroadcastManagerCallerInterface {
 
     GPSManager gpsManager;
     private MapView map;
@@ -96,7 +96,6 @@ public class ChatActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.menu_chat) {
@@ -200,6 +199,24 @@ public class ChatActivity extends AppCompatActivity
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    @Override
+    public void MessageReceivedThroughBroadcastManager(final String channel,final String type, final String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                listOfMessages.add(message);
+                ((ListView)findViewById(R.id.messages_list_view)).setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+    }
+
+    @Override
+    public void ErrorAtBroadcastManager(Exception error) {
+
     }
 
 }
