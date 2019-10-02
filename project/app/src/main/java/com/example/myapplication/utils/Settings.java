@@ -1,17 +1,26 @@
 package com.example.myapplication.utils;
 
-import com.example.myapplication.activities.MainActivity;
+import android.view.View;
 
 public abstract class Settings {
 
-    static String url = "http://192.168.1.71:8080/MovilAPI/api/";
+    static String urlAPI = "http://192.168.1.71:8080/MovilAPI/api/";
+    static String urlPush = "http://192.168.1.71:8080/MovilAPI/api/";
 
-    public static void linkServer(String ip, String port) {
-        Settings.url = "http://"+ip+":"+port+"/MovilAPI/api/";
+    public static void linkAPI(String ip, String port) {
+        Settings.urlAPI = "http://"+ip+":"+port+"/MovilAPI/api/";
     }
 
-    public static String getUrl() {
-        return url;
+    public static void linkPush(String ip, String port) {
+        Settings.urlAPI = "http://"+ip+":"+port+"/MovilAPI/api/";
+    }
+
+    public static String getUrlAPI() {
+        return urlAPI;
+    }
+
+    public static String getUrlPush() {
+        return urlPush;
     }
 
 }

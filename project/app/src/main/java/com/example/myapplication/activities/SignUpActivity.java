@@ -48,15 +48,12 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     private void httpRequestTest() {
-// Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
 
-// Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrl() + "users",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrlAPI() + "users",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-//                        FORMA DE SACAR INFO DE PETICION
 
                         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
                         ServerResponse responseJSON = gson.fromJson(response, ServerResponse.class);
@@ -71,7 +68,34 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-// Add the request to the RequestQueue.
+
         queue.add(stringRequest);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+    }
+
+    private void hideSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    private void showSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 }
