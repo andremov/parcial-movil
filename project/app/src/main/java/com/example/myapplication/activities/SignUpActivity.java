@@ -26,7 +26,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        hideSystemUI();
+//        hideSystemUI();
 
         ((Button)findViewById(R.id.register_button)).
                 setOnClickListener(new View.OnClickListener() {
@@ -75,7 +75,7 @@ public class SignUpActivity extends AppCompatActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-            hideSystemUI();
+//            hideSystemUI();
         }
     }
 

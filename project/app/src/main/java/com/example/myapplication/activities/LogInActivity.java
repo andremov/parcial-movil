@@ -33,7 +33,7 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-        hideSystemUI();
+//        hideSystemUI();
 
         ((Button)findViewById(R.id.login_button)).
                 setOnClickListener(new View.OnClickListener() {
@@ -140,12 +140,10 @@ public class LogInActivity extends AppCompatActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-            hideSystemUI();
+//            hideSystemUI();
         }
     }
-
-
-
+    
     private void hideSystemUI() {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
