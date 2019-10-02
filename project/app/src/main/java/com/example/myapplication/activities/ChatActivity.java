@@ -101,7 +101,8 @@ public class ChatActivity extends AppCompatActivity
 
                         if (responseJSON.isSuccess()) {
                             try {
-                                ArrayList<LinkedTreeMap> msgs = gson.fromJson(data, ArrayList.class);
+                                lastReceived =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
+                                        ArrayList<LinkedTreeMap> msgs = gson.fromJson(data, ArrayList.class);
                                 for(LinkedTreeMap message : msgs) {
 
                                         MessageReceived(new Message((String) message.get("body"), (String) message.get("message_timestamp"), (String) message.get("sender")));
@@ -118,6 +119,57 @@ public class ChatActivity extends AppCompatActivity
         });
 
         queue.add(stringRequest);
+
+
+    }
+
+    public void requestNewMessages() {
+        final String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
+
+        try {
+            RequestQueue queue = Volley.newRequestQueue(this);
+
+            JSONObject jsonBody = new JSONObject();
+
+            jsonBody.put("first_value", lastReceived);
+            jsonBody.put("last_value", timestamp);
+
+
+            JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Settings.getUrlAPI() + "withinDate", jsonBody,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            String res = response.toString();
+
+                            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
+                            ServerResponse responseJSON = gson.fromJson(res, ServerResponse.class);
+                            String data = responseJSON.getData();
+
+                            if(responseJSON.isSuccess()) {
+                                try {
+                                    lastReceived = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
+                                    ArrayList<LinkedTreeMap> msgs = gson.fromJson(data, ArrayList.class);
+                                    for (LinkedTreeMap message : msgs) {
+
+                                        MessageReceived(new Message((String) message.get("body"), (String) message.get("message_timestamp"), (String) message.get("sender")));
+
+                                    }
+                                } catch (Exception e) {
+                                }
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "Error: "+error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+            queue.add(stringRequest);
+
+        } catch(Exception e) { }
+
     }
 
     public void sendMessage() {
