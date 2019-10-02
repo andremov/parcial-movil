@@ -4,7 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.example.myapplication.broadcast.BroadcastManager;
+//import com.example.myapplication.broadcast.BroadcastManager;
 import com.example.myapplication.broadcast.BroadcastManagerCallerInterface;
 import com.example.myapplication.utils.Settings;
 
@@ -18,7 +18,7 @@ import com.example.myapplication.utils.Settings;
 public class SocketManagementService extends IntentService implements ClientSocketManagerCallerInterface, BroadcastManagerCallerInterface {
 
     ClientSocketManager clientSocketManager;
-    BroadcastManager broadcastManager;
+    //BroadcastManager broadcastManager;
     public static String SOCKET_SERVICE_CHANNEL="com.example.myfirstapplication.SOCKET_SERVICE_CHANNEL";
     public static String SERVER_TO_CLIENT_MESSAGE="SERVER_TO_CLIENT_MESSAGE";
     public static String CLIENT_TO_SERVER_MESSAGE="CLIENT_TO_SERVER_MESSAGE";
@@ -26,10 +26,13 @@ public class SocketManagementService extends IntentService implements ClientSock
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     public static final String ACTION_CONNECT = "com.example.myfirstapplication.network.action.ACTION_CONNECT";
-    private static final String ACTION_BAZ = "com.example.myfirstapplication.network.action.BAZ";
 
     public SocketManagementService() {
         super("SocketManagementService");
+
+
+        Toast.makeText(this,"constructor",Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -40,7 +43,8 @@ public class SocketManagementService extends IntentService implements ClientSock
             if (ACTION_CONNECT.equals(action)) {
                 */
                 initializeClientSocketManager();
-                initializeBroadcastManager();
+                //initializeBroadcastManager();
+                Toast.makeText(this,"init",Toast.LENGTH_LONG).show();
                 /*
             }
         }
@@ -68,28 +72,25 @@ public class SocketManagementService extends IntentService implements ClientSock
     public void initializeClientSocketManager(){
         try{
             if(clientSocketManager==null){
-                clientSocketManager=new ClientSocketManager(
-                        Settings.getPushIP(),
-                        Settings.getPushPort(),
-                        this);
+                clientSocketManager=new ClientSocketManager( Settings.getPushIP(), Settings.getPushPort(), this);
+                Toast.makeText(this,"created client socket manager",Toast.LENGTH_LONG).show();
             }
         }catch (Exception error){
             Toast.makeText(this,error.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
-
+/*
     public void initializeBroadcastManager(){
         try{
-            if(broadcastManager==null){
-                broadcastManager=new BroadcastManager(
-                        getApplicationContext(),
-                        SOCKET_SERVICE_CHANNEL,
-                        this);
+            if(broadcastManager == null){
+                broadcastManager=new BroadcastManager(getApplicationContext(), SOCKET_SERVICE_CHANNEL,this);
+                Toast.makeText(this,"created broadcast manager",Toast.LENGTH_LONG).show();
             }
         }catch (Exception error){
             Toast.makeText(this,error.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
+*/
 
     @Override
     public void MessageReceived(String message) {
@@ -131,9 +132,11 @@ public class SocketManagementService extends IntentService implements ClientSock
 
     @Override
     public void onDestroy() {
+        /*
         if(broadcastManager!=null){
             broadcastManager.unRegister();
         }
+         */
         super.onDestroy();
     }
 }

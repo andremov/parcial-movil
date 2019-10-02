@@ -27,7 +27,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import com.example.myapplication.R;
-import com.example.myapplication.broadcast.BroadcastManager;
+//import com.example.myapplication.broadcast.BroadcastManager;
 import com.example.myapplication.broadcast.BroadcastManagerCallerInterface;
 import com.example.myapplication.gps.GPSManager;
 import com.example.myapplication.gps.GPSManagerCallerInterface;
@@ -75,8 +75,6 @@ public class MapActivity extends AppCompatActivity
     GPSManager gpsManager;
     private MapView map;
     private MyLocationNewOverlay mLocationOverlay;
-    BroadcastManager broadcastManagerForSocketIO;
-    boolean serviceStarted = false;
     UserLocations[] userLocations;
     UserHistoryLocations[] userHistoryLocations;
     ArrayList<OverlayItem> itemsInMap;
@@ -86,6 +84,9 @@ public class MapActivity extends AppCompatActivity
     Requests requests;
 
     ArrayList<Location> locations;
+
+    //BroadcastManager broadcastManagerForSocketIO;
+    boolean serviceStarted = false;
 
     public void initializeGPSManager() {
         gpsManager = new GPSManager(this, this);
@@ -100,43 +101,41 @@ public class MapActivity extends AppCompatActivity
 
         initDrawer();
 
-        locations = new ArrayList<Location>();
-        requests = new Requests();
-        locationDrawer = new LocationDrawer();
-
-        initializeGPSManager();
-        initializeOSM();
-        initializeBroadcastManagerForSocketIO();
-
-        getUserLocations();
-
-        user = (User) getIntent().getSerializableExtra("user_obj");
-        Toast.makeText(  this, "Welcome, " + user.getmFirst_name(), Toast.LENGTH_SHORT). show();
-
         ((Button)findViewById(R.id.btn_location_history)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            DatePickerDialogShells datePickerDialogShells = new DatePickerDialogShells();
-            datePickerDialogShells.show(getSupportFragmentManager(), "datePickerDialogShells");
+                DatePickerDialogShells datePickerDialogShells = new DatePickerDialogShells();
+                datePickerDialogShells.show(getSupportFragmentManager(), "datePickerDialogShells");
 //                    openDateDialogPicker();
 //                map.getOverlays().clear();
 //                requestUserLocationHistory();
             }
         });
 
-        Intent intent=new Intent(
-                getApplicationContext(),SocketManagementService.class);
-        intent.setAction(SocketManagementService.ACTION_CONNECT);
+        user = (User) getIntent().getSerializableExtra("user_obj");
+        Toast.makeText(  this, "Welcome, " + user.getmFirst_name(), Toast.LENGTH_SHORT). show();
+
+        locations = new ArrayList<Location>();
+        requests = new Requests();
+        locationDrawer = new LocationDrawer();
+
+        initializeGPSManager();
+        initializeOSM();
+        //initializeBroadcastManagerForSocketIO();
+
+        getUserLocations();
+
+        Intent intent=new Intent(getApplicationContext(),SocketManagementService.class);
         startService(intent);
         serviceStarted = true;
     }
-
+/*
     public void initializeBroadcastManagerForSocketIO() {
         broadcastManagerForSocketIO = new BroadcastManager(this,
                 SocketManagementService.
                         SOCKET_SERVICE_CHANNEL, this);
     }
-
+*/
     private void requestUserLocationHistory(){
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -324,12 +323,14 @@ public class MapActivity extends AppCompatActivity
             }
         });
 
+        /*
         if (serviceStarted)
             if (broadcastManagerForSocketIO != null) {
                 broadcastManagerForSocketIO.sendBroadcast(
                         SocketManagementService.CLIENT_TO_SERVER_MESSAGE,
                         location.getLatitude() + " / " + location.getLongitude() + "\n");
             }
+         */
     }
 
     @Override
@@ -530,9 +531,12 @@ public class MapActivity extends AppCompatActivity
 
     @Override
     protected void onDestroy() {
+        /*
         if (broadcastManagerForSocketIO != null) {
             broadcastManagerForSocketIO.unRegister();
         }
+        */
+
         super.onDestroy();
     }
 

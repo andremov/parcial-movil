@@ -11,9 +11,7 @@ public class BroadcastManager extends BroadcastReceiver {
     private String channel;
     private BroadcastManagerCallerInterface caller;
 
-    public BroadcastManager(Context context,
-                            String channel,
-                            BroadcastManagerCallerInterface caller) {
+    public BroadcastManager(Context context, String channel, BroadcastManagerCallerInterface caller) {
         this.context = context;
         this.channel = channel;
         this.caller = caller;
