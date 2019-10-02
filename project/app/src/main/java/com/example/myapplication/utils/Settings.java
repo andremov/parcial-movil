@@ -8,7 +8,7 @@ import java.util.List;
 public abstract class Settings {
 
     static String urlAPI = "http://192.168.0.10:8080/MovilAPI/api/";
-    static String urlPushIP = "192.168.1.71";
+    static String urlPushIP = "192.168.0.18";
     static String urlPushPort = "9090";
 
     public static void linkAPI(String ip, String port) {
