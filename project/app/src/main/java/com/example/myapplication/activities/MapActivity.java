@@ -138,12 +138,11 @@ public class MapActivity extends AppCompatActivity
 
     private void requestUserLocationHistory(){
         RequestQueue queue = Volley.newRequestQueue(this);
-        // Request a string response from the provided URL.
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrlAPI() + "locations/" + lastMarkerClicked,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //FORMA DE SACAR INFO DE PETICION
                         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
                         ServerResponse responseJSON = gson.fromJson(response, ServerResponse.class);
                         String data = responseJSON.getData();
@@ -157,7 +156,7 @@ public class MapActivity extends AppCompatActivity
             }
         });
 
-        // Add the request to the RequestQueue.
+
         queue.add(stringRequest);
     }
 
@@ -417,7 +416,6 @@ public class MapActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.menu_chat) {
