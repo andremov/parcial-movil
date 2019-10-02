@@ -170,7 +170,7 @@ public class MapActivity extends AppCompatActivity
         });
 
         if (!serviceStarted) {
-            Intent intent = new Intent(this, SocketManagementService.class);
+            Intent intent = new Intent(getApplicationContext(), SocketManagementService.class);
             intent.setAction(SocketManagementService.ACTION_CONNECT);
             startService(intent);
             serviceStarted = true;
