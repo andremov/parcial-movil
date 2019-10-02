@@ -46,5 +46,10 @@
     <string name="date_start">Crono Ubicacion Inicial</string>
     <string name="date_end">Crono Ubicacion Final</string>
 
+    <!-- CLICKED DIALOG STRINGS -->
+    <string name="dialog_placeholder_name">Nombre</string>
+    <string name="dialog_placeholder_location">Ubicación</string>
+    <string name="dialog_btn_history">Rastrear</string>
+
 
 </resources>
