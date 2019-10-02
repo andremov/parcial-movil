@@ -39,18 +39,6 @@ public class LogInActivity extends AppCompatActivity {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        /*
-                        Intent intetToBecalled=new
-                                Intent(getApplicationContext(),
-                                MapActivity.class);
-                        intetToBecalled.putExtra("user_name",
-                                ((EditText)findViewById(
-                                        R.id.input_username)).getText().toString());
-                        intetToBecalled.putExtra("user_password",
-                                ((EditText)findViewById(
-                                        R.id.input_password)).getText().toString());
-                        startActivity(intetToBecalled);
-                        */
 
                         doLogIn();
 
