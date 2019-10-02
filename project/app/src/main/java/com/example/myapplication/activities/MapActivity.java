@@ -39,6 +39,7 @@ import com.example.myapplication.objects.ServerResponse;
 import com.example.myapplication.objects.User;
 import com.example.myapplication.objects.UserHistoryLocations;
 import com.example.myapplication.objects.UserLocations;
+import com.example.myapplication.utils.ConnectionManager;
 import com.example.myapplication.utils.LocationDrawer;
 import com.example.myapplication.utils.Requests;
 import com.example.myapplication.utils.Settings;
@@ -89,6 +90,7 @@ public class MapActivity extends AppCompatActivity
     LocationDrawer locationDrawer;
     Requests requests;
     ArrayList<Location> locations;
+    ConnectionManager connectionManager;
 
     Button btnHistoryLocations, btnBackLocations;
 
@@ -104,7 +106,8 @@ public class MapActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_menu_map);
-//        hideSystemUI();
+
+        connectionManager = new ConnectionManager(this);
 
         btnHistoryLocations = (Button) findViewById(R.id.btn_location_history);
         btnBackLocations = (Button) findViewById(R.id.btn_back_locations);
@@ -117,10 +120,15 @@ public class MapActivity extends AppCompatActivity
         btnBackLocations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnHistoryLocations.setVisibility(View.VISIBLE);
-                btnBackLocations.setVisibility(View.INVISIBLE);
-                map.getOverlays().clear();
-                getUserLocations();
+                if (connectionManager.checkConnection()) {
+                    btnHistoryLocations.setVisibility(View.VISIBLE);
+                    btnBackLocations.setVisibility(View.INVISIBLE);
+                    map.getOverlays().clear();
+                    getUserLocations();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Ups! No hay conexión", Toast.LENGTH_SHORT). show();
+                }
+
             }
         });
 
@@ -220,13 +228,13 @@ public class MapActivity extends AppCompatActivity
 
                             } else {
                                 //ALMACENAR UBICACION EN ROM DATABASE
-                                Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Ups! Error en servidor", Toast.LENGTH_SHORT). show();
                             }
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Ups! No hay conexión", Toast.LENGTH_SHORT). show();
                 }
             });
 
@@ -254,13 +262,13 @@ public class MapActivity extends AppCompatActivity
                                 userHistoryLocations = gson.fromJson(data, UserHistoryLocations[].class);
                                 drawUsersHistoryLocations();
                             } else {
-                                Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Ups! Error en servidor", Toast.LENGTH_SHORT). show();
                             }
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Ups! No hay conexión", Toast.LENGTH_SHORT). show();
                 }
             });
 
@@ -324,7 +332,7 @@ public class MapActivity extends AppCompatActivity
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "That didn't work!" + error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Ups! No hay conexión", Toast.LENGTH_SHORT). show();
             }
         });
 

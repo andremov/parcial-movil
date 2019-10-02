@@ -2,7 +2,6 @@ package com.example.myapplication.activities;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +10,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,19 +21,12 @@ import com.android.volley.toolbox.Volley;
 import com.example.myapplication.R;
 import com.example.myapplication.objects.ServerResponse;
 import com.example.myapplication.objects.UserHistoryLocations;
-import com.example.myapplication.objects.UserLocations;
 import com.example.myapplication.utils.Settings;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import org.json.JSONObject;
-import org.osmdroid.views.MapView;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class DatePickerDialogShells extends BottomSheetDialogFragment {
 
@@ -151,14 +140,13 @@ public class DatePickerDialogShells extends BottomSheetDialogFragment {
                                         ((MapActivity) getActivity()).setUserHistoryLocations(userHistoryLocations);
                                         ((MapActivity) getActivity()).drawUsersHistoryLocations();
                                     } else {
-                                        Toast.makeText((MapActivity) getActivity(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "Ups! No hay conexión", Toast.LENGTH_SHORT). show();
                                     }
                                 }
                             }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText((MapActivity) getActivity(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                            Log.e("ERROR", "Error occurred ", error);
+                            Toast.makeText(getActivity(), "Ups! No hay conexión", Toast.LENGTH_SHORT). show();
                         }
                     });
                     queue.add(stringRequest);
