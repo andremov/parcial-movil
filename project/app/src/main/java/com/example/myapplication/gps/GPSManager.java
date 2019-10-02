@@ -13,7 +13,7 @@ import android.os.Looper;
 import com.example.myapplication.activities.MapActivity;
 
 public class GPSManager implements LocationListener {
-    private Activity activity;
+
     private MapActivity mapActivity;
     private GPSManagerCallerInterface caller;
 
@@ -27,12 +27,11 @@ public class GPSManager implements LocationListener {
 
     public void initializeLocationManager() {
         try {
-            locationManager = (LocationManager)
-                    this.activity.getSystemService(Context.LOCATION_SERVICE);
-            if (activity.checkSelfPermission(
+            locationManager = (LocationManager) this.mapActivity.getSystemService(Context.LOCATION_SERVICE);
+            if (mapActivity.checkSelfPermission(
                     Manifest.permission.ACCESS_FINE_LOCATION) !=
                     PackageManager.PERMISSION_GRANTED ||
-                    activity.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+                    mapActivity.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
                             != PackageManager.PERMISSION_GRANTED) {
                 caller.needPermissions();
                 return;

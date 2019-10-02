@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 //import com.example.myapplication.broadcast.BroadcastManager;
+import com.example.myapplication.broadcast.BroadcastManager;
 import com.example.myapplication.broadcast.BroadcastManagerCallerInterface;
 import com.example.myapplication.utils.Settings;
 
@@ -15,9 +16,10 @@ import com.example.myapplication.utils.Settings;
  * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
  */
-public class SocketManagementService extends IntentService implements ClientSocketManagerCallerInterface{
+public class SocketManagementService extends IntentService implements ClientSocketManagerCallerInterface, BroadcastManagerCallerInterface {
 
     ClientSocketManager clientSocketManager;
+    BroadcastManager broadcastManager;
     //BroadcastManager broadcastManager;
     public static String SOCKET_SERVICE_CHANNEL="com.example.myfirstapplication.SOCKET_SERVICE_CHANNEL";
     public static String SERVER_TO_CLIENT_MESSAGE="SERVER_TO_CLIENT_MESSAGE";
@@ -38,13 +40,13 @@ public class SocketManagementService extends IntentService implements ClientSock
         if (intent != null) {
             final String action = intent.getAction();
             if (ACTION_CONNECT.equals(action)) {
+                initializeBroadcastManager();
                 initializeClientSocketManager();
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                clientSocketManager.sendMessage("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             }
         }
     }
@@ -67,6 +69,19 @@ public class SocketManagementService extends IntentService implements ClientSock
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
+    public void initializeBroadcastManager(){
+        try{
+            if(broadcastManager==null){
+                broadcastManager=new BroadcastManager(
+                        getApplicationContext(),
+                        SOCKET_SERVICE_CHANNEL,
+                        this);
+            }
+        }catch (Exception error){
+            Toast.makeText(this,error.getMessage(),Toast.LENGTH_LONG).show();
+        }
+    }
+
     public void initializeClientSocketManager(){
         try{
             if(clientSocketManager==null){
@@ -80,18 +95,14 @@ public class SocketManagementService extends IntentService implements ClientSock
 
     @Override
     public void MessageReceived(String message) {
-        /*
-        try {
-            if(broadcastManager!=null){
-                broadcastManager.sendBroadcast( SERVER_TO_CLIENT_MESSAGE,message);
-            }
-        } catch (Exception error) { }
-         */
-        System.out.println(message);
+
+        System.out.println("[TCP SOCKET] MESSAGE RECEIVED!");
         if(message.equals("ping")) {
             clientSocketManager.sendMessage("pong");
         }else if(message.equals("update@locations")){
-
+            if(broadcastManager!=null){
+                broadcastManager.sendBroadcast( SERVER_TO_CLIENT_MESSAGE, message);
+            }
         }else if(message.equals("update@messages")){
 
         }
@@ -105,5 +116,15 @@ public class SocketManagementService extends IntentService implements ClientSock
 
         clientSocketManager=null;
         super.onDestroy();
+    }
+
+    @Override
+    public void MessageReceivedThroughBroadcastManager(String channel, String type, String message) {
+
+    }
+
+    @Override
+    public void ErrorAtBroadcastManager(Exception error) {
+
     }
 }

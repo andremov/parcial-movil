@@ -31,6 +31,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.myapplication.R;
 //import com.example.myapplication.broadcast.BroadcastManager;
+import com.example.myapplication.broadcast.BroadcastManager;
 import com.example.myapplication.broadcast.BroadcastManagerCallerInterface;
 import com.example.myapplication.gps.GPSManager;
 import com.example.myapplication.gps.GPSManagerCallerInterface;
@@ -94,7 +95,8 @@ public class MapActivity extends AppCompatActivity
 
     Button btnHistoryLocations, btnBackLocations;
 
-    //BroadcastManager broadcastManagerForSocketIO;
+    BroadcastManager broadcastManagerForSocketIO;
+
     boolean serviceStarted = false;
 
     public void initializeGPSManager() {
@@ -152,7 +154,8 @@ public class MapActivity extends AppCompatActivity
 
         initializeGPSManager();
         initializeOSM();
-        //initializeBroadcastManagerForSocketIO();
+
+        initializeBroadcastManagerForSocketIO();
 
         getUserLocations();
 
@@ -176,13 +179,12 @@ public class MapActivity extends AppCompatActivity
             serviceStarted = true;
         }
     }
-/*
+
     public void initializeBroadcastManagerForSocketIO() {
         broadcastManagerForSocketIO = new BroadcastManager(this,
                 SocketManagementService.
                         SOCKET_SERVICE_CHANNEL, this);
     }
-*/
 
     public void postCurrentLocation() {
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -577,14 +579,12 @@ public class MapActivity extends AppCompatActivity
 
     @Override
     public void MessageReceivedThroughBroadcastManager(final String channel, final String type, final String message) {
+        System.out.println("--- [MAP ACTIVITY] --- " +message);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                /*
-                listOfMessages.add(message);
-                ((ListView) findViewById(R.id.messages_list_view)).setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-                 */
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                getUserLocations();
             }
         });
 

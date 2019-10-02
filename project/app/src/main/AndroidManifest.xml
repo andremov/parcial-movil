@@ -30,7 +30,8 @@
             android:name=".activities.ChatActivity"
             android:theme="@style/AppTheme"/>
 
-        <activity android:name=".activities.LogInActivity">
+        <activity android:name=".activities.LogInActivity" android:theme="@style/AppTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
