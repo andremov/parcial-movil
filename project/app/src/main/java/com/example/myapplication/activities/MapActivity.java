@@ -601,11 +601,11 @@ public class MapActivity extends AppCompatActivity
 
     @Override
     public void MessageReceivedThroughBroadcastManager(final String channel, final String type, final String message) {
-        System.out.println("--- [MAP ACTIVITY] --- " +message);
+        //System.out.println("--- [MAP ACTIVITY] --- " +message);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                 getUserLocations();
             }
         });
