@@ -73,15 +73,6 @@ public class MainActivity extends AppCompatActivity
     ArrayList<OverlayItem> itemsInMap;
     String lastMarkerClicked;
 
-<<<<<<< HEAD
-    final String url = "http://192.168.0.20:8080/MovilAPI/api/";
-=======
-<<<<<<< HEAD:project/app/src/main/java/com/example/myapplication/activities/MainActivity2.java
-    final String url = "http://192.168.0.20:8080/MovilAPI/api/";
-=======
->>>>>>> 2ca4d6a85336770776fec84ac429fbee06e21ba7:project/app/src/main/java/com/example/myapplication/activities/MainActivity.java
->>>>>>> 2ca4d6a85336770776fec84ac429fbee06e21ba7
-
     ArrayList<Location> locations;
 
     public void initializeGPSManager() {
@@ -115,17 +106,10 @@ public class MainActivity extends AppCompatActivity
 //        toggle.syncState();
 //        navigationView.setNavigationItemSelectedListener(this);
 
-<<<<<<< HEAD
-//        User user = (User) getIntent().getSerializableExtra("user_obj");
 
-
-//        Toast.makeText(  this, "Welcome, " + user.getmFirst_name(), Toast.LENGTH_SHORT). show();
-=======
         User user = (User) getIntent().getSerializableExtra("user_obj");
 
-
         Toast.makeText(  this, "Welcome, " + user.getmFirst_name(), Toast.LENGTH_SHORT). show();
->>>>>>> 2ca4d6a85336770776fec84ac429fbee06e21ba7
 
 /*
         String user = getIntent().getExtras().
@@ -188,7 +172,7 @@ public class MainActivity extends AppCompatActivity
     private void requestUserLocationHistory(){
         RequestQueue queue = Volley.newRequestQueue(this);
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrl() + "locations/" + lastMarkerClicked,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrlAPI() + "locations/" + lastMarkerClicked,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -213,7 +197,7 @@ public class MainActivity extends AppCompatActivity
     private void getUserLocations() {
         RequestQueue queue = Volley.newRequestQueue(this);
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrl() + "locations",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrlAPI() + "locations",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -317,7 +301,7 @@ public class MainActivity extends AppCompatActivity
         RequestQueue queue = Volley.newRequestQueue(this);
 
 // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrl() + "users/demarchenac",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrlAPI() + "users/demarchenac",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -478,4 +462,3 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
     }
 }
-
