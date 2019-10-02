@@ -94,8 +94,6 @@ public class MainActivity extends AppCompatActivity
 
         locations = new ArrayList<Location>();
 
-        String user = getIntent().getExtras().getString("user_name");
-        Toast.makeText(this,"Welcome " + user, Toast.LENGTH_SHORT).show();
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
