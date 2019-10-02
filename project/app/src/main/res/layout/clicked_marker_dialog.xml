@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/bonuspack_bubble">
+    android:background="@drawable/bonuspack_bubble"
+    android:backgroundTint="@android:color/white">
 
     <TextView
         android:id="@+id/dialog_user_name"
@@ -11,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="3dp"
         android:layout_marginTop="3dp"
-        android:text="Nombre Usuario"
+        android:text="@string/dialog_placeholder_name"
         android:textSize="15dp"
         android:textStyle="bold"/>
 
@@ -22,18 +23,19 @@
         android:layout_alignLeft="@+id/dialog_user_name"
         android:layout_below="@+id/dialog_user_name"
         android:layout_marginTop="5dp"
-        android:text="Fecha Ultima actualizacion"
+        android:text="@string/dialog_placeholder_location"
         android:textSize="12dp"/>
 
     <Button
         android:id="@+id/dialog_btn_location_history"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/dialog_user_last_date"
         android:layout_marginRight="5dp"
-        android:text="Ver Historial"
-        android:background="@android:color/holo_green_light"
+        android:text="@string/dialog_btn_history"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"
         />
 
 </RelativeLayout>

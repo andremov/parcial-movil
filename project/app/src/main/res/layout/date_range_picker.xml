@@ -8,8 +8,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Seleccionar rango de fechas"
-        android:textSize="18dp"/>
+        android:text="@string/search_title"
+        android:textSize="18sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,8 +18,8 @@
 
         <EditText
             android:id="@+id/input_date_start"
-            android:hint="Fecha Inicial"
-            android:layout_width="300dp"
+            android:hint="@string/date_start"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:inputType="date"
             android:focusable="false"
@@ -44,8 +44,8 @@
 
         <EditText
             android:id="@+id/input_date_end"
-            android:hint="Fecha Final"
-            android:layout_width="300dp"
+            android:hint="@string/date_end"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:inputType="date"
             android:focusable="false"
@@ -65,8 +65,10 @@
 
     <Button
         android:id="@+id/btn_search_in_dates"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Buscar"/>
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btn_height"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@android:color/white"
+        android:text="@string/search_location"/>
 
 </LinearLayout>

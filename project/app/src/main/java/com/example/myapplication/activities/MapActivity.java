@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
@@ -188,7 +189,11 @@ public class MapActivity extends AppCompatActivity
             startMarker.setPosition(new GeoPoint(ul.getmLat(), ul.getmLon()));
             startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             map.getOverlays().add(startMarker);
-            startMarker.setIcon(getResources().getDrawable(R.drawable.ic_location_history));
+
+            Drawable newMarker = getResources().getDrawable(R.drawable.ic_location);
+            newMarker.setTint(Color.argb(255, 14, 35, 175));
+            startMarker.setIcon(newMarker);
+
             startMarker.setTitle(ul.getmLocation_timestamp());
         }
     }
@@ -199,11 +204,15 @@ public class MapActivity extends AppCompatActivity
             startMarker.setPosition(new GeoPoint(ul.getmLat(), ul.getmLon()));
             startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             map.getOverlays().add(startMarker);
+            Drawable icon;
             if (ul.getmStatus().equals("online")) {
-                startMarker.setIcon(getResources().getDrawable(R.drawable.ic_location_online));
+                icon = getResources().getDrawable(R.drawable.ic_location);
+                icon.setTint(Color.argb(255, 38, 139, 45));
             } else {
-                startMarker.setIcon(getResources().getDrawable(R.drawable.ic_location_offline));
+                icon = getResources().getDrawable(R.drawable.ic_location);
+                icon.setTint(Color.argb(255, 200, 49, 38));
             }
+            startMarker.setIcon(icon);
             startMarker.setTitle(ul.getmUsername());
             startMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
                 @Override
@@ -223,14 +232,18 @@ public class MapActivity extends AppCompatActivity
     private void drawUsersLocationsTEST() {
         for(UserLocations ul : userLocations) {
             OverlayItem overlayItem = new OverlayItem(ul.getmFull_name(), ul.getmLastSeen(), new GeoPoint(ul.getmLat(), ul.getmLon()));
-            Drawable newMarker;
+            Drawable icon;
+
             //CHECK IF USER IS ONLINE AND SET MARKER
             if (ul.getmStatus().equals("online")) {
-                newMarker = this.getResources().getDrawable(R.drawable.ic_location_online);
+                icon = this.getResources().getDrawable(R.drawable.ic_location);
+                icon.setTint(Color.argb(255, 38, 139, 45));
             } else {
-                newMarker = this.getResources().getDrawable(R.drawable.ic_location_offline);
+                icon = this.getResources().getDrawable(R.drawable.ic_location);
+                icon.setTint(Color.argb(255, 200, 49, 38));
             }
-            overlayItem.setMarker(newMarker);
+
+            overlayItem.setMarker(icon);
             //ADD TO ITEMS IN MAP ARRAY
             itemsInMap.add(overlayItem);
         }
