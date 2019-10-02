@@ -147,12 +147,16 @@ public class ChatActivity extends AppCompatActivity
     }
 
     public void doLogOut() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        // Request a string response from the provided URL.
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrlAPI() + "users/logout/" + user.getmUsername(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
                         ServerResponse responseJSON = gson.fromJson(response, ServerResponse.class);
+
                         if (responseJSON.isSuccess()) {
 
                             Intent intetToBecalled=new
@@ -174,6 +178,9 @@ public class ChatActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "That didn't work!", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 
     @Override

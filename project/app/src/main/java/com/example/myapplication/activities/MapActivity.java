@@ -423,7 +423,7 @@ public class MapActivity extends AppCompatActivity
         if (id == R.id.menu_chat) {
             goToChat();
         } else if (id == R.id.menu_logout) {
-
+            doLogOut();
         } else if (id == R.id.menu_map) {
             // YA ESTÁ ACÁ
         }
@@ -433,6 +433,42 @@ public class MapActivity extends AppCompatActivity
         return true;
     }
 
+    public void doLogOut() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        // Request a string response from the provided URL.
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrlAPI() + "users/logout/" + user.getmUsername(),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
+                        ServerResponse responseJSON = gson.fromJson(response, ServerResponse.class);
+
+                        if (responseJSON.isSuccess()) {
+
+                            Intent intetToBecalled=new
+                                    Intent(getApplicationContext(),
+                                    LogInActivity.class);
+
+                            finish();
+
+                            startActivity(intetToBecalled);
+                            Toast.makeText(getApplicationContext(), "Logged out.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Couldn't log out :(", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "That didn't work!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+    
     public void initDrawer() {
 
         Toolbar toolbar = findViewById(R.id.map_toolbar);
