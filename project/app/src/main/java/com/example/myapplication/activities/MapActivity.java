@@ -8,12 +8,15 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -55,6 +58,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -67,7 +71,9 @@ import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MapActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GPSManagerCallerInterface, BroadcastManagerCallerInterface {
@@ -119,19 +125,79 @@ public class MapActivity extends AppCompatActivity
 
         getUserLocations();
 
-        user = (User) getIntent().getSerializableExtra("user_obj");
-        Toast.makeText(  this, "Welcome, " + user.getmFirst_name(), Toast.LENGTH_SHORT). show();
+        postCurrentLocation();
 
-        ((Button)findViewById(R.id.btn_location_history)).setOnClickListener(new View.OnClickListener() {
+        user = (User) getIntent().getSerializableExtra("user_obj");
+        Toast.makeText(this, "Welcome, " + user.getmFirst_name(), Toast.LENGTH_SHORT).show();
+
+        ((Button) findViewById(R.id.btn_location_history)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            DatePickerDialogShells datePickerDialogShells = new DatePickerDialogShells();
-            datePickerDialogShells.show(getSupportFragmentManager(), "datePickerDialogShells");
+                DatePickerDialogShells datePickerDialogShells = new DatePickerDialogShells();
+                datePickerDialogShells.show(getSupportFragmentManager(), "datePickerDialogShells");
 //                    openDateDialogPicker();
 //                map.getOverlays().clear();
 //                requestUserLocationHistory();
             }
         });
+    }
+
+    private void postCurrentLocation() {
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    Activity#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for Activity#requestPermissions for more details.
+            return;
+        }
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
+        String mLon = location.getLongitude() + "";
+        String mLat = location.getLatitude() + "";
+        String mCurrentDateandTime = sdf.format(new Date());
+        user = (User) getIntent().getSerializableExtra("user_obj");
+        String mUsername = user.getmUsername();
+
+        try {
+            RequestQueue queue = Volley.newRequestQueue(this);
+
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("lon", mLon);
+            jsonBody.put("lat", mLat);
+            jsonBody.put("location_timestamp", mCurrentDateandTime);
+            jsonBody.put("username", mUsername);
+
+            JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Settings.getUrlAPI() + "locations", jsonBody,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            String res = response.toString();
+
+                            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
+                            ServerResponse responseJSON = gson.fromJson(res, ServerResponse.class);
+                            String json = responseJSON.getData();
+
+                            if(responseJSON.isSuccess()) {
+
+                            } else {
+                                //ALMACENAR UBICACION EN ROM DATABASE
+                                Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            queue.add(stringRequest);
+        } catch(Exception e) { }
     }
 
     private void requestUserLocationHistory(){
@@ -405,7 +471,7 @@ public class MapActivity extends AppCompatActivity
     public void setMapCenter(Location location) {
         IMapController mapController =
                 map.getController();
-        mapController.setZoom(9.5);
+        mapController.setZoom(10);
         GeoPoint startPoint = new GeoPoint(
                 location.getLatitude(), location.getLongitude());
         mapController.setCenter(startPoint);
