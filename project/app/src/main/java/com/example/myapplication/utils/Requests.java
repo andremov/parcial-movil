@@ -16,14 +16,14 @@ import com.google.gson.GsonBuilder;
 
 public class Requests {
 
-    static String URL_API= "http://192.168.0.20:8080/MovilAPI/api/";
+    static String URL_API = "http://192.168.0.20:8080/MovilAPI/api/";
 
     UserLocations[] userLocations;
 
     public UserLocations[] getUserLocations(final Context context){
         RequestQueue queue = Volley.newRequestQueue(context);
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrlAPI() + "locations",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_API + "locations",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

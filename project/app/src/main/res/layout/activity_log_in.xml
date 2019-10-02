@@ -70,6 +70,8 @@
             app:layout_constraintHorizontal_bias="0.517"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"
+
+            android:text="concha"
             />
 
         <TextView
@@ -94,6 +96,8 @@
             android:hint="@string/placeholder_password"
             android:textColorHint="@android:color/darker_gray"
             android:textColor="@android:color/white"
+
+            android:text="ProfePonganos5"
             />
 
         <Button
