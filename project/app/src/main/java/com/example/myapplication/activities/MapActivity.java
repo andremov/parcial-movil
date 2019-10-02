@@ -468,7 +468,7 @@ public class MapActivity extends AppCompatActivity
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
     }
-    
+
     public void initDrawer() {
 
         Toolbar toolbar = findViewById(R.id.map_toolbar);

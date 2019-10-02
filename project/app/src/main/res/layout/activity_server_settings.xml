@@ -91,16 +91,6 @@
             android:textSize="@dimen/btn_text_size"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/back_button_to_login"
-            android:layout_width="@dimen/btn_secondary_width"
-            android:layout_height="@dimen/btn_secondary_height"
-            android:layout_marginTop="@dimen/btn_spacing"
-            android:background="@color/colorSoft"
-            android:text="@string/back_button"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/btn_secondary_text_size"
-            android:textStyle="bold" />
 </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

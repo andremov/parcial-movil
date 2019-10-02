@@ -30,13 +30,6 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 });
 
-        ((Button)findViewById(R.id.back_button_to_login)).
-                setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        finish();
-                    }
-                });
     }
 
     @Override
