@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -50,6 +51,7 @@ import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,7 +87,8 @@ public class MainActivity extends AppCompatActivity
     String lastMarkerClicked;
 
     //    final String url ="http://localhost:8080/MovilAPI/api/";
-    final String url = "http://192.168.1.71:8080/MovilAPI/api/";
+//    final String url = "http://192.168.1.71:8080/MovilAPI/api/";
+    final String url = "http://192.168.0.20:8080/MovilAPI/api/";
 
     ArrayList<Location> locations;
 
@@ -107,28 +110,16 @@ public class MainActivity extends AppCompatActivity
 
         locations = new ArrayList<Location>();
 
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
-//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//        NavigationView navigationView = findViewById(R.id.nav_view);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
-//        navigationView.setNavigationItemSelectedListener(this);
-
-        String user = getIntent().getExtras().
-                getString("user_name");
-        Toast.makeText(
-                this,
-                "Welcome " + user, Toast.LENGTH_SHORT).
-                show();
+        String user = getIntent().getExtras().getString("user_name");
+        Toast.makeText(this,"Welcome " + user, Toast.LENGTH_SHORT).show();
         ((Button)findViewById(R.id.btn_location_history)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                map.getOverlays().clear();
-                requestUserLocationHistory();
+            DatePickerDialog datePickerDialog = new DatePickerDialog();
+            datePickerDialog.show(getSupportFragmentManager(), "datePickerDialog");
+//                    openDateDialogPicker();
+//                map.getOverlays().clear();
+//                requestUserLocationHistory();
             }
         });
 
