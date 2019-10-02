@@ -33,6 +33,7 @@ import com.example.myapplication.objects.ServerResponse;
 import com.example.myapplication.objects.User;
 import com.example.myapplication.objects.UserHistoryLocations;
 import com.example.myapplication.objects.UserLocations;
+import com.example.myapplication.utils.Settings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -59,7 +60,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements GPSManagerCallerInterface, BroadcastManagerCallerInterface {
-
 
     GPSManager gpsManager;
     private MapView map;
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity
     private void requestUserLocationHistory(){
         RequestQueue queue = Volley.newRequestQueue(this);
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "locations/" + lastMarkerClicked,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrl() + "locations/" + lastMarkerClicked,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity
     private void getUserLocations() {
         RequestQueue queue = Volley.newRequestQueue(this);
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "locations",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrl() + "locations",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity
         RequestQueue queue = Volley.newRequestQueue(this);
 
 // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "users/demarchenac",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrl() + "users/demarchenac",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

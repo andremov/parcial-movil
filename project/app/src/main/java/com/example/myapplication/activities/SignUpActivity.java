@@ -16,11 +16,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.R;
 import com.example.myapplication.objects.ServerResponse;
+import com.example.myapplication.utils.Settings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class SignUpActivity extends AppCompatActivity {
-    final String url ="http://192.168.0.10:8080/MovilAPI/api/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class SignUpActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
 
 // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "users",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrl() + "users",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

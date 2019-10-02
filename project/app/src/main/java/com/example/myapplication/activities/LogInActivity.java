@@ -12,6 +12,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.myapplication.R;
 import com.example.myapplication.objects.ServerResponse;
 import com.example.myapplication.objects.User;
+import com.example.myapplication.utils.Settings;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -89,7 +90,7 @@ public class LogInActivity extends AppCompatActivity {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("data", password);
 
-            JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, MainActivity.url + "users/"+username, jsonBody,
+            JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Settings.getUrl() + "users/"+username, jsonBody,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {

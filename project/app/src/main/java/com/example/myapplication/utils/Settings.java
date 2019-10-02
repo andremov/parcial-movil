@@ -10,4 +10,8 @@ public abstract class Settings {
         Settings.url = "http://"+ip+":"+port+"/MovilAPI/api/";
     }
 
+    public static String getUrl() {
+        return url;
+    }
+
 }
