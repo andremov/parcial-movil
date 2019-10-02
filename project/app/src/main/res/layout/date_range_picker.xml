@@ -3,7 +3,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:id="@+id/date_picker_fragment">
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,7 +20,7 @@
         <EditText
             android:id="@+id/input_date_start"
             android:hint="@string/date_start"
-            android:layout_width="350dp"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:inputType="date"
             android:focusable="false"
@@ -45,7 +46,7 @@
         <EditText
             android:id="@+id/input_date_end"
             android:hint="@string/date_end"
-            android:layout_width="350dp"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:inputType="date"
             android:focusable="false"

@@ -92,7 +92,6 @@ public class MapActivity extends AppCompatActivity
     User user;
     LocationDrawer locationDrawer;
     Requests requests;
-
     ArrayList<Location> locations;
 
     public void initializeGPSManager() {
@@ -135,9 +134,6 @@ public class MapActivity extends AppCompatActivity
             public void onClick(View view) {
                 DatePickerDialogShells datePickerDialogShells = new DatePickerDialogShells();
                 datePickerDialogShells.show(getSupportFragmentManager(), "datePickerDialogShells");
-//                    openDateDialogPicker();
-//                map.getOverlays().clear();
-//                requestUserLocationHistory();
             }
         });
     }
@@ -200,28 +196,77 @@ public class MapActivity extends AppCompatActivity
         } catch(Exception e) { }
     }
 
-    private void requestUserLocationHistory(){
-        RequestQueue queue = Volley.newRequestQueue(this);
+    public void requestUserLocationHistory(String startSearchDate, String endSearchDate){
+        try {
+            RequestQueue queue = Volley.newRequestQueue(this);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrlAPI() + "locations/" + lastMarkerClicked,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
-                        ServerResponse responseJSON = gson.fromJson(response, ServerResponse.class);
-                        String data = responseJSON.getData();
-                        userHistoryLocations = gson.fromJson(data, UserHistoryLocations[].class);
-                        drawUsersHistoryLocations();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "That didn't work!", Toast.LENGTH_SHORT).show();
-            }
-        });
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("first_value", startSearchDate);
+            jsonBody.put("last_value", endSearchDate);
+
+            JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Settings.getUrlAPI() + "locations/" + lastMarkerClicked, jsonBody,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            String res = response.toString();
+                            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
+                            ServerResponse responseJSON = gson.fromJson(res, ServerResponse.class);
+                            if(responseJSON.isSuccess()) {
+                                String data = responseJSON.getData();
+                                userHistoryLocations = gson.fromJson(data, UserHistoryLocations[].class);
+                                drawUsersHistoryLocations();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            queue.add(stringRequest);
+        } catch(Exception e) { }
 
 
-        queue.add(stringRequest);
+
+
+//        RequestQueue queue = Volley.newRequestQueue(this);
+//
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrlAPI() + "locations/" + lastMarkerClicked,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
+//                        ServerResponse responseJSON = gson.fromJson(response, ServerResponse.class);
+//                        String data = responseJSON.getData();
+//                        userHistoryLocations = gson.fromJson(data, UserHistoryLocations[].class);
+//                        drawUsersHistoryLocations();
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Toast.makeText(getApplicationContext(), "That didn't work!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        queue.add(stringRequest);
+    }
+
+    public String getLastMarkerClicked() {
+        return lastMarkerClicked;
+    }
+
+    public void setLastMarkerClicked(String lastMarkerClicked) {
+        this.lastMarkerClicked = lastMarkerClicked;
+    }
+
+    public UserHistoryLocations[] getUserHistoryLocations() {
+        return userHistoryLocations;
+    }
+
+    public void setUserHistoryLocations(UserHistoryLocations[] userHistoryLocations) {
+        this.userHistoryLocations = userHistoryLocations;
     }
 
     private void getUserLocations() {
@@ -249,7 +294,7 @@ public class MapActivity extends AppCompatActivity
         queue.add(stringRequest);
     }
 
-    private void drawUsersHistoryLocations(){
+    public void drawUsersHistoryLocations(){
         for(UserHistoryLocations ul : userHistoryLocations) {
             Marker startMarker = new Marker(map);
             startMarker.setPosition(new GeoPoint(ul.getmLat(), ul.getmLon()));
