@@ -160,7 +160,7 @@ public class MapActivity extends AppCompatActivity
     private void getUserLocations() {
         RequestQueue queue = Volley.newRequestQueue(this);
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.0.20:8080/MovilAPI/api/locations",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrlAPI() + "locations",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
