@@ -73,8 +73,6 @@ public class MainActivity extends AppCompatActivity
     ArrayList<OverlayItem> itemsInMap;
     String lastMarkerClicked;
 
-    final String url = "http://192.168.0.20:8080/MovilAPI/api/";
-
     ArrayList<Location> locations;
 
     public void initializeGPSManager() {
