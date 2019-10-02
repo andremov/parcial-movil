@@ -40,4 +40,11 @@
     <string name="label_long">Longitud</string>
     <string name="placeholder_nodata">Sin datos</string>
 
+    <!-- DATE SEARCH STRINGS -->
+    <string name="search_title">Crono Busqueda</string>
+    <string name="search_location">Crono Buscar</string>
+    <string name="date_start">Crono Ubicacion Inicial</string>
+    <string name="date_end">Crono Ubicacion Final</string>
+
+
 </resources>
