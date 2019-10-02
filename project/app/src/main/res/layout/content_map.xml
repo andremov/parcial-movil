@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:nestedScrollingEnabled="true"
     tools:showIn="@layout/app_toolbar_map"
+    tools:context=".activities.MapActivity"
     >
 
     <org.osmdroid.views.MapView

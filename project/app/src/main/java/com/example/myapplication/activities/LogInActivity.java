@@ -96,7 +96,6 @@ public class LogInActivity extends AppCompatActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-
                             String res = response.toString();
 
                             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
@@ -123,7 +122,6 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void goToMainActivity(User user) {
-
         Intent intetToBecalled=new
                 Intent(getApplicationContext(),
                 MapActivity.class);

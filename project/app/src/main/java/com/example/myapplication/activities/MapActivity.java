@@ -21,7 +21,9 @@ import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import com.example.myapplication.R;
@@ -35,6 +37,7 @@ import com.example.myapplication.objects.User;
 import com.example.myapplication.objects.UserHistoryLocations;
 import com.example.myapplication.objects.UserLocations;
 import com.example.myapplication.utils.Settings;
+import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -42,6 +45,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -64,7 +68,7 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import java.util.ArrayList;
 
 public class MapActivity extends AppCompatActivity
-        implements GPSManagerCallerInterface, BroadcastManagerCallerInterface {
+        implements NavigationView.OnNavigationItemSelectedListener, GPSManagerCallerInterface, BroadcastManagerCallerInterface {
 
     GPSManager gpsManager;
     private MapView map;
@@ -77,6 +81,7 @@ public class MapActivity extends AppCompatActivity
     UserHistoryLocations[] userHistoryLocations;
     ArrayList<OverlayItem> itemsInMap;
     String lastMarkerClicked;
+    User user;
 
     ArrayList<Location> locations;
 
@@ -96,6 +101,7 @@ public class MapActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_menu_map);
 
+        initDrawer();
 
         locations = new ArrayList<Location>();
 
@@ -111,7 +117,7 @@ public class MapActivity extends AppCompatActivity
 //        navigationView.setNavigationItemSelectedListener(this);
 
 
-        User user = (User) getIntent().getSerializableExtra("user_obj");
+        user = (User) getIntent().getSerializableExtra("user_obj");
 
         Toast.makeText(  this, "Welcome, " + user.getmFirst_name(), Toast.LENGTH_SHORT). show();
 
@@ -399,7 +405,6 @@ public class MapActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-
     }
 
     public void initializeOSM() {
@@ -453,23 +458,63 @@ public class MapActivity extends AppCompatActivity
 
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.menu_chat) {
-
+            goToChat();
         } else if (id == R.id.menu_logout) {
 
-
         } else if (id == R.id.menu_map) {
-
+            // YA ESTÁ ACÁ
         }
 
-        DrawerLayout drawer = findViewById(R.id.nav_view);
+        DrawerLayout drawer = findViewById(R.id.map_drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void initDrawer() {
+
+        Toolbar toolbar = findViewById(R.id.map_toolbar);
+        setSupportActionBar(toolbar);
+        DrawerLayout drawer = findViewById(R.id.map_drawer_layout);
+
+        NavigationView navigationView = findViewById(R.id.map_nav_view);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.menu_open, R.string.menu_close);
+
+        drawer.addDrawerListener(toggle);
+
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.nav_view);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    public void goToChat() {
+        Intent intetToBecalled=new
+                Intent(getApplicationContext(),
+                ChatActivity.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("user_obj", user);
+
+        intetToBecalled.putExtras(bundle);
+
+        startActivity(intetToBecalled);
     }
 
     @Override
