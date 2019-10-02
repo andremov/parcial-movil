@@ -34,6 +34,8 @@ import com.example.myapplication.objects.ServerResponse;
 import com.example.myapplication.objects.User;
 import com.example.myapplication.objects.UserHistoryLocations;
 import com.example.myapplication.objects.UserLocations;
+import com.example.myapplication.utils.LocationDrawer;
+import com.example.myapplication.utils.Requests;
 import com.example.myapplication.utils.Settings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -77,6 +79,8 @@ public class MapActivity extends AppCompatActivity
     UserHistoryLocations[] userHistoryLocations;
     ArrayList<OverlayItem> itemsInMap;
     String lastMarkerClicked;
+    Requests requests;
+    LocationDrawer locationDrawer;
 
     ArrayList<Location> locations;
 
@@ -96,8 +100,20 @@ public class MapActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_menu_map);
 
-
         locations = new ArrayList<Location>();
+        requests = new Requests();
+        locationDrawer = new LocationDrawer();
+
+//        userLocations = requests.getUserLocations(this);
+
+        getUserLocations();
+
+//        locationDrawer.drawUsersLocations(userLocations, map, this);
+//        lastMarkerClicked = locationDrawer.getLastMarkerClicked();
+
+
+
+
 
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
@@ -147,7 +163,7 @@ public class MapActivity extends AppCompatActivity
         //CREACIÓN DE PINES CLICKEABLES
 
         //your items
-        itemsInMap = new ArrayList<OverlayItem>();
+//        itemsInMap = new ArrayList<OverlayItem>();
 //        itemsInMap.add(new OverlayItem("Agua", "El marcador en el agua derecha", new GeoPoint(11.038239, -74.665461))); // Lat/Lon decimal degrees
 //        itemsInMap.add(new OverlayItem("Agua 2", "El marcador en el agua izquierda", new GeoPoint(11.058781, -74.934484))); // Lat/Lon decimal degrees
 
@@ -201,7 +217,7 @@ public class MapActivity extends AppCompatActivity
     private void getUserLocations() {
         RequestQueue queue = Volley.newRequestQueue(this);
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Settings.getUrlAPI() + "locations",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.0.20:8080/MovilAPI/api/locations",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -215,7 +231,7 @@ public class MapActivity extends AppCompatActivity
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "That didn't work!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "That didn't work!" + error.toString(), Toast.LENGTH_LONG).show();
             }
         });
 
