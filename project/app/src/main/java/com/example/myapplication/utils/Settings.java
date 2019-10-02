@@ -1,7 +1,5 @@
 package com.example.myapplication.utils;
 
-import android.view.View;
-
 public abstract class Settings {
 
     static String urlAPI = "http://192.168.1.71:8080/MovilAPI/api/";
