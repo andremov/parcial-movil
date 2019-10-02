@@ -9,29 +9,50 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.myapplication.activities.MapActivity;
+import com.example.myapplication.utils.Settings;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class GPSManager implements LocationListener {
 
-    private MapActivity mapActivity;
+    private Activity activity;
     private GPSManagerCallerInterface caller;
+    private MapActivity mapActivity;
 
     LocationManager locationManager;
 
-    public GPSManager(MapActivity mapActivity,
-                      GPSManagerCallerInterface caller) {
-        this.mapActivity = mapActivity;
+    public GPSManager(Activity activity, GPSManagerCallerInterface caller) {
+        this.activity = activity;
         this.caller = caller;
+    }
+
+    public GPSManager(Activity activity, GPSManagerCallerInterface caller, MapActivity mapActivity) {
+        this.activity = activity;
+        this.caller = caller;
+        this.mapActivity = mapActivity;
     }
 
     public void initializeLocationManager() {
         try {
-            locationManager = (LocationManager) this.mapActivity.getSystemService(Context.LOCATION_SERVICE);
-            if (mapActivity.checkSelfPermission(
+            locationManager = (LocationManager) this.activity.getSystemService(Context.LOCATION_SERVICE);
+            if (activity.checkSelfPermission(
                     Manifest.permission.ACCESS_FINE_LOCATION) !=
                     PackageManager.PERMISSION_GRANTED ||
-                    mapActivity.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+                    activity.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
                             != PackageManager.PERMISSION_GRANTED) {
                 caller.needPermissions();
                 return;
