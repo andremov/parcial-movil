@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="parcial-movil">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/parcial-movil.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
