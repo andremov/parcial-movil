@@ -48,14 +48,14 @@
             android:id="@+id/label_username"
             android:layout_width="@dimen/input_width"
             android:layout_height="wrap_content"
-            android:labelFor="@id/input_username"
+            android:labelFor="@id/signup_input_username"
             android:text="@string/placeholder_username"
             android:textColor="@android:color/white"
             android:layout_marginTop="@dimen/form_first_input"
             />
 
         <EditText
-            android:id="@+id/input_username"
+            android:id="@+id/login_input_username"
             android:layout_width="@dimen/input_width"
             android:layout_height="@dimen/input_height"
             android:layout_marginTop="@dimen/form_label_spacing"
@@ -76,14 +76,14 @@
             android:id="@+id/label_password"
             android:layout_width="@dimen/input_width"
             android:layout_height="wrap_content"
-            android:labelFor="@id/input_password"
+            android:labelFor="@id/signup_input_password"
             android:text="@string/placeholder_password"
             android:textColor="@android:color/white"
             android:layout_marginTop="@dimen/form_input_spacing"
             />
 
         <EditText
-            android:id="@+id/input_password"
+            android:id="@+id/login_input_password"
             android:layout_width="@dimen/input_width"
             android:layout_height="@dimen/input_height"
             android:layout_marginTop="@dimen/form_label_spacing"
@@ -139,7 +139,7 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="262dp"
-        android:layout_height="36dp"
+        android:layout_height="80dp"
         android:text="@string/developers"
         android:textAlignment="center"
         android:textColor="@android:color/white"
@@ -148,6 +148,6 @@
         app:layout_constraintHorizontal_bias=".5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".95" />
+        app:layout_constraintVertical_bias=".99" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

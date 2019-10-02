@@ -42,19 +42,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3">
+        app:layout_constraintVertical_bias="0.45">
 
         <TextView
             android:id="@+id/label_username"
             android:layout_width="@dimen/input_width"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/form_first_input"
-            android:labelFor="@id/input_username"
+            android:labelFor="@id/signup_input_username"
             android:text="@string/placeholder_username"
             android:textColor="@android:color/white" />
 
         <EditText
-            android:id="@+id/input_username"
+            android:id="@+id/signup_input_username"
             android:layout_width="@dimen/input_width"
             android:layout_height="@dimen/input_height"
             android:layout_marginTop="@dimen/form_label_spacing"
@@ -70,12 +70,12 @@
             android:layout_width="@dimen/input_width"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/form_input_spacing"
-            android:labelFor="@id/input_password"
+            android:labelFor="@id/signup_input_password"
             android:text="@string/placeholder_password"
             android:textColor="@android:color/white" />
 
         <EditText
-            android:id="@+id/input_password"
+            android:id="@+id/signup_input_password"
             android:layout_width="@dimen/input_width"
             android:layout_height="@dimen/input_height"
             android:layout_marginTop="@dimen/form_label_spacing"
@@ -91,12 +91,12 @@
             android:layout_width="@dimen/input_width"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/form_input_spacing"
-            android:labelFor="@id/input_name"
+            android:labelFor="@id/signup_input_name"
             android:text="@string/placeholder_name"
             android:textColor="@android:color/white" />
 
         <EditText
-            android:id="@+id/input_name"
+            android:id="@+id/signup_input_name"
             android:layout_width="@dimen/input_width"
             android:layout_height="@dimen/input_height"
             android:layout_marginTop="@dimen/form_label_spacing"
@@ -111,12 +111,12 @@
             android:layout_width="@dimen/input_width"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/form_input_spacing"
-            android:labelFor="@id/input_lastname"
+            android:labelFor="@id/signup_input_lastname"
             android:text="@string/placeholder_lastname"
             android:textColor="@android:color/white" />
 
         <EditText
-            android:id="@+id/input_lastname"
+            android:id="@+id/signup_input_lastname"
             android:layout_width="@dimen/input_width"
             android:layout_height="@dimen/input_height"
             android:layout_marginTop="@dimen/form_label_spacing"
@@ -131,12 +131,12 @@
             android:layout_width="@dimen/input_width"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/form_input_spacing"
-            android:labelFor="@id/input_email"
+            android:labelFor="@id/signup_input_email"
             android:text="@string/placeholder_email"
             android:textColor="@android:color/white" />
 
         <EditText
-            android:id="@+id/input_email"
+            android:id="@+id/signup_input_email"
             android:layout_width="@dimen/input_width"
             android:layout_height="@dimen/input_height"
             android:layout_marginTop="@dimen/form_label_spacing"
@@ -146,22 +146,18 @@
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/darker_gray" />
 
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginTop="@dimen/form_input_spacing"
+            android:backgroundTint="@color/colorAccentAlt"
+            android:text="@string/action_signup_string"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/btn_text_size" />
+
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/register_button"
-        android:layout_width="@dimen/btn_width"
-        android:layout_height="@dimen/btn_height"
-        android:backgroundTint="@color/colorAccentAlt"
-        android:text="@string/action_signup_string"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/btn_text_size"
-        android:layout_marginTop="@dimen/form_input_spacing"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
