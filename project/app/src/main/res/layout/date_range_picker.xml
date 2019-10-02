@@ -63,4 +63,10 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_search_in_dates"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Buscar"/>
+
 </LinearLayout>
