@@ -601,14 +601,17 @@ public class MapActivity extends AppCompatActivity
 
     @Override
     public void MessageReceivedThroughBroadcastManager(final String channel, final String type, final String message) {
-        //System.out.println("--- [MAP ACTIVITY] --- " +message);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                getUserLocations();
-            }
-        });
+        System.out.println("--- [MAP ACTIVITY] --- " +message);
+        if(message.equals("update@locations")){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    getUserLocations();
+                }
+            });
+        }
+
 
     }
 

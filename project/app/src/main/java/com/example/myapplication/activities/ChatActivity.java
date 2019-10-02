@@ -146,7 +146,7 @@ public class ChatActivity extends AppCompatActivity
             jsonBody.put("last_value", timestamp);
 
 
-            JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Settings.getUrlAPI() + "withinDate", jsonBody,
+            JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, Settings.getUrlAPI() + "locations/withinDate", jsonBody,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -352,14 +352,17 @@ public class ChatActivity extends AppCompatActivity
     @Override
     public void MessageReceivedThroughBroadcastManager(String channel, String type, String message) {
 
-        //System.out.println("--- [MAP ACTIVITY] --- " +message);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                requestNewMessages();
-            }
-        });
+        System.out.println("--- [CHAT ACTIVITY] --- " +message);
+        if(message.equals("update@messages")){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+
+                    requestNewMessages();
+                }
+            });
+        }
     }
 
     @Override

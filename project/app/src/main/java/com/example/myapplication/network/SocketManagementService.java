@@ -104,7 +104,9 @@ public class SocketManagementService extends IntentService implements ClientSock
                 broadcastManager.sendBroadcast( SERVER_TO_CLIENT_MESSAGE, message);
             }
         }else if(message.equals("update@messages")){
-
+            if(broadcastManager!=null){
+                broadcastManager.sendBroadcast( SERVER_TO_CLIENT_MESSAGE, message);
+            }
         }
     }
 
