@@ -19,10 +19,14 @@
     <string name="placeholder_password">Contraseña</string>
 
     <!-- SERVER LINK STRINGS -->
-    <string name="label_server_ip">Dirección</string>
-    <string name="label_server_port">Portal</string>
+    <string name="label_server_ip">Dirección Server</string>
+    <string name="label_server_port">Portal Server</string>
+    <string name="label_socket_ip">Dirección Socket</string>
+    <string name="label_socket_port">Portal Socket</string>
     <string name="placeholder_server_ip">172.17.9.21</string>
     <string name="placeholder_server_port">9090</string>
+    <string name="placeholder_socket_ip">172.17.9.21</string>
+    <string name="placeholder_socket_port">8080</string>
 
     <!-- UI STRINGS -->
     <string name="back_button"> Atrás </string>

@@ -22,9 +22,12 @@ public class SettingsActivity extends AppCompatActivity {
                 setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String ip = ((TextView)findViewById(R.id.server_ip_txt)).getText().toString();
-                        String port = ((TextView)findViewById(R.id.server_port_txt)).getText().toString();
-                        Settings.linkAPI(ip, port);
+                        String ip_server = ((TextView)findViewById(R.id.server_ip_txt)).getText().toString();
+                        String port_server  = ((TextView)findViewById(R.id.server_port_txt)).getText().toString();
+                        String ip_socket = ((TextView)findViewById(R.id.socket_ip_txt)).getText().toString();
+                        String port_socket = ((TextView)findViewById(R.id.socket_port_txt)).getText().toString();
+                        Settings.linkAPI(ip_server, port_server);
+                        Settings.linkPush(ip_socket, port_socket);
 
                         finish();
                     }
