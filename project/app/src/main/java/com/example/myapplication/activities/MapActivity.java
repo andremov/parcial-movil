@@ -92,6 +92,8 @@ public class MapActivity extends AppCompatActivity
     Requests requests;
     ArrayList<Location> locations;
     ConnectionManager connectionManager;
+    double distanceResult;
+    double speedProm;
 
     Button btnHistoryLocations, btnBackLocations;
 
@@ -106,6 +108,9 @@ public class MapActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        distanceResult = 0;
+        speedProm = 0;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_menu_map);
 
@@ -337,41 +342,28 @@ public class MapActivity extends AppCompatActivity
 
     public void setUserHistoryLocations(UserHistoryLocations[] userHistoryLocations) {
         this.userHistoryLocations = userHistoryLocations;
-        ArrayList<Double> distances = new ArrayList<>();
-        ArrayList<Double> times = new ArrayList<>();
-        ArrayList<Double> speeds = new ArrayList<>();
-        for (int i = 1; i < userHistoryLocations.length - 1; i++){
-            distances.add(distance(userHistoryLocations[i].getmLat(),
-                    userHistoryLocations[i + 1].getmLat(),
-                    userHistoryLocations[i].getmLon(),
-                    userHistoryLocations[i+1].getmLon()));
-            times.add((userHistoryLocations[i+1].getTime() - userHistoryLocations[i].getTime()));
-            speeds.add(distances.get(i)/times.get(i));
-        }
-        double distanceResult = 0;
-        double speedProm = 0;
-        for(int i = 0; i < distances.size(); i++) {
-            distanceResult += distances.get(i);
-            speedProm += speeds.get(i);
-        }
-        speedProm /= speeds.size();
 
-        new AlertDialog.Builder(getApplicationContext())
-                .setTitle("Datos del recorrido")
-                .setMessage("Distancia: " + distanceResult + "\n Velocidad Promedio: " + speedProm)
-
-                // Specifying a listener allows you to take an action before dismissing the dialog.
-                // The dialog is automatically dismissed when a dialog button is clicked.
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Continue with delete operation
-                    }
-                })
-
-                // A null listener allows the button to dismiss the dialog and take no further action.
-                .setNegativeButton(android.R.string.no, null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+//        DISTANCIA Y VELOCIDAD PROMEDIO
+//        ArrayList<Double> distances = new ArrayList<>();
+//        ArrayList<Double> times = new ArrayList<>();
+//        ArrayList<Double> speeds = new ArrayList<>();
+//        for (int i = 1; i < userHistoryLocations.length - 1; i++){
+//            distances.add(distance(userHistoryLocations[i].getmLat(),
+//                    userHistoryLocations[i + 1].getmLat(),
+//                    userHistoryLocations[i].getmLon(),
+//                    userHistoryLocations[i+1].getmLon()));
+//            times.add((userHistoryLocations[i+1].getTime() - userHistoryLocations[i].getTime()));
+//            speeds.add(distances.get(i)/times.get(i));
+//        }
+//        distanceResult = 0;
+//        speedProm = 0;
+//        for(int i = 0; i < distances.size(); i++) {
+//            distanceResult += distances.get(i);
+//            speedProm += speeds.get(i);
+//        }
+//        speedProm /= speeds.size();
+//
+//        Toast.makeText(getApplicationContext(), "Distancia: " + distanceResult + "\n Velocidad Promedio: " + speedProm, Toast.LENGTH_LONG). show();
     }
 
     public static double distance(double lat1, double lat2, double lon1,
