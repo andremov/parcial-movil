@@ -24,9 +24,9 @@
     <string name="label_socket_ip">Dirección Socket</string>
     <string name="label_socket_port">Portal Socket</string>
     <string name="placeholder_server_ip">172.17.9.21</string>
-    <string name="placeholder_server_port">9090</string>
+    <string name="placeholder_server_port">8080</string>
     <string name="placeholder_socket_ip">172.17.9.21</string>
-    <string name="placeholder_socket_port">8080</string>
+    <string name="placeholder_socket_port">9090</string>
 
     <!-- UI STRINGS -->
     <string name="back_button"> Atrás </string>
