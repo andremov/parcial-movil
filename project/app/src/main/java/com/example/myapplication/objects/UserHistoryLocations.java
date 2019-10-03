@@ -46,6 +46,10 @@ public class UserHistoryLocations {
         return dateFormat.format(mLocation_timestamp);
     }
 
+    public double getTime() {
+        return Long.valueOf(this.mLocation_timestamp.getTime()).doubleValue();
+    }
+
     public void setmLocation_timestamp(Date mLocation_timestamp) {
         this.mLocation_timestamp = mLocation_timestamp;
     }

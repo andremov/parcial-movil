@@ -337,6 +337,59 @@ public class MapActivity extends AppCompatActivity
 
     public void setUserHistoryLocations(UserHistoryLocations[] userHistoryLocations) {
         this.userHistoryLocations = userHistoryLocations;
+        ArrayList<Double> distances = new ArrayList<>();
+        ArrayList<Double> times = new ArrayList<>();
+        ArrayList<Double> speeds = new ArrayList<>();
+        for (int i = 1; i < userHistoryLocations.length - 1; i++){
+            distances.add(distance(userHistoryLocations[i].getmLat(),
+                    userHistoryLocations[i + 1].getmLat(),
+                    userHistoryLocations[i].getmLon(),
+                    userHistoryLocations[i+1].getmLon()));
+            times.add((userHistoryLocations[i+1].getTime() - userHistoryLocations[i].getTime()));
+            speeds.add(distances.get(i)/times.get(i));
+        }
+        double distanceResult = 0;
+        double speedProm = 0;
+        for(int i = 0; i < distances.size(); i++) {
+            distanceResult += distances.get(i);
+            speedProm += speeds.get(i);
+        }
+        speedProm /= speeds.size();
+
+        new AlertDialog.Builder(getApplicationContext())
+                .setTitle("Datos del recorrido")
+                .setMessage("Distancia: " + distanceResult + "\n Velocidad Promedio: " + speedProm)
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Continue with delete operation
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    public static double distance(double lat1, double lat2, double lon1,
+                                  double lon2) {
+
+        final int R = 6371; // Radius of the earth
+
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = R * c * 1000; // convert to meters
+
+        distance = Math.pow(distance, 2) + Math.pow(0, 2);
+
+        return Math.sqrt(distance);
     }
 
     private void getUserLocations() {
